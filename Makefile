@@ -1,16 +1,24 @@
 NAME = cub3d
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g3
-MLXFLAGS = -Lincludes/minilibx -lm -lmlx -L/usr/lib/X11 -lXext -lX11
-LIBFT = $(LIBFT_PATH)/libft.a
+
 MLX = $(MLX_PATH)/libmlx.a
-LIBFT_PATH = includes/libft
 MLX_PATH = includes/minilibx
-SRC = 
+MLXFLAGS = -Lincludes/minilibx -lm -lmlx -L/usr/lib/X11 -lXext -lX11
+
+LIBFT = $(LIBFT_PATH)/libft.a
+LIBFT_PATH = includes/libft
+
+SRC_PATH = sources/
+SRC = $(wildcard $(SRC_PATH)*.c)
+
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objects
+
 INCLUDE_DIR = includes
+
 RM = rm -f
+
 all: $(NAME)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
