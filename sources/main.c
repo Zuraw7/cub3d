@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/19 14:39:23 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/21 23:56:41 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,29 @@ void	open_window(t_mlx *mlx)
 		printf("Error\nmlx_new_window failed\n");
 		exit(1);
 	}
-	mlx_loop(mlx->mlx_ptr);
+}
+
+int close_window(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	exit(0);
+	return (0);
+}
+
+int	key_press(int keycode, t_mlx *mlx)
+{
+	if (keycode == 65307)
+		close_window(mlx);
+	return (0);
+}
+
+void register_events(t_mlx *mlx)
+{
+	// Eventy dla klawiatury
+	mlx_key_hook(mlx->win_ptr, key_press, mlx);
+
+	// Zamkniecie okna na X
+	mlx_hook(mlx->win_ptr, 17, 0, close_window, mlx);
 }
 
 int main(int ac, char **av)
@@ -38,6 +60,10 @@ int main(int ac, char **av)
 	(void)av;
 	data.mlx = &mlx;
 	open_window(data.mlx);
+
+	register_events(data.mlx);
+
+	mlx_loop(data.mlx->mlx_ptr);
 
 	return (0);
 }

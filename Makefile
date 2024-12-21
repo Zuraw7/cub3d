@@ -12,31 +12,37 @@ LIBFT_PATH = includes/libft
 SRC_PATH = sources/
 SRC = $(wildcard $(SRC_PATH)*.c)
 
-OBJ = $(SRC:.c=.o)
-OBJ_DIR = objects
+OBJ_PATH = objects/
+OBJ = $(SRC:$(SRC_PATH)%.c=%.o)
+OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
 
 INCLUDE_DIR = includes
 
-RM = rm -f
+RM = rm -rf
 
 all: $(NAME)
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+
 $(LIBFT):
-	make -C $(LIBFT_PATH)
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(MLXLIB):
-	make -C $(MLX_PATH)
-$(NAME): $(OBJ) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MLXFLAGS)
+	@make -C $(LIBFT_PATH)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDE_DIR)
+
+$(MLX):
+	@make -C $(MLX_PATH)
+
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLXFLAGS)
+
 clean:
-	$(RM) $(OBJ)
-	make -C $(LIBFT_PATH) clean
-	$(RM) -r $(OBJ_DIR)
+	$(RM) $(OBJ_PATH)
+	@make -C $(LIBFT_PATH) clean
+
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIBFT_PATH) fclean
-re: fclean $(NAME)
+	@make -C $(LIBFT_PATH) fclean
+
+re: fclean all
 
 .PHONY: all clean fclean re
