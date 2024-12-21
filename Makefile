@@ -18,7 +18,6 @@ OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
 
 INCLUDE_DIR = includes
 
-# Automatyczne tworzenie podkatalogów w objects/
 OBJ_DIRS = $(sort $(dir $(OBJS)))
 
 RM = rm -rf
@@ -28,7 +27,6 @@ all: $(NAME)
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
-# Tworzenie plików obiektowych i ich podkatalogów
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_DIRS) # Tworzenie wszystkich potrzebnych podkatalogów
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDE_DIR)
