@@ -9,8 +9,8 @@ Ray-casting / mini Wolfenstein 3D
 # Układ struktur
 
 data -> główna struktura przetrzymująca wszystkie inne struktury, służy do przekazywania struktur pomiędzy funkcjami<br>
-mlx -> do zarządzania oknem
-map -> wszystkie zmienne dotyczące i potrzebne do działania mapy
-player -> wszystkie zmienne potrzebne do obsługi mechaniki gracza
+mlx -> do zarządzania oknem<br>
+map -> wszystkie zmienne dotyczące i potrzebne do działania mapy<br>
+player -> wszystkie zmienne potrzebne do obsługi mechaniki gracza<br>
 
 każda ze struktur ma odniesienie do data na wszelki wypadek, przez co łatwo dostać się do innych zmiennych
