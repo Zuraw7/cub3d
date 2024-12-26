@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 17:06:36 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/26 17:12:32 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,6 @@ char	**read_map(char *file)
 {
 	(void)file;
 	return (NULL);
-}
-
-void	set_data(t_data *data)
-{
-	t_mlx		*mlx;
-	t_map		*map;
-	t_player	*player;
-
-	mlx = malloc(sizeof(t_mlx));
-	map = malloc(sizeof(t_map));
-	player = malloc(sizeof(t_player));
-	if (!mlx || !map || !player)
-	{
-		printf("Error: malloc failed\n");
-		exit(1);
-	}
-	data->mlx = mlx;
-	mlx->data = data;
-	data->map = map;
-	map->data = data;
-	data->player = player;
-	player->data = data;
 }
 
 int main(int ac, char **av)
