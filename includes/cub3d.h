@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 17:07:38 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/26 17:09:28 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <sys/time.h>
 # include "./minilibx/mlx.h"
+# include "mlx_colors.h"
 
 /*	DEFINES	*/
 
@@ -27,6 +28,8 @@
 # define HEIGHT 600
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
+
+# define MOUSE_EDGE_LIMIT 30
 
 /*	STRUCTS	*/
 
@@ -39,7 +42,10 @@ typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_map		*map;
-	t_player	*player;
+	void		*window;
+	int			win_height;
+	int			win_width;
+	t_player	player;
 }				t_data;
 
 typedef struct s_mlx
@@ -65,6 +71,7 @@ typedef struct s_player
 	float	y;
 	float	dir;
 	float	fov;
+	int		has_moved;
 	t_data	*data;
 }				t_player;
 
