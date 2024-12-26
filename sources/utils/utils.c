@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 13:14:13 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/26 14:20:26 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 void	exit_clear(t_mlx *mlx)
 {
 	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx);
 	exit(0);
 }
