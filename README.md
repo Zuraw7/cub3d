@@ -8,7 +8,7 @@ Ray-casting / mini Wolfenstein 3D
 
 # Układ struktur
 
-data -> główna struktura przetrzymująca wszystkie inne struktury, służy do przekazywania struktur pomiędzy funkcjami
+data -> główna struktura przetrzymująca wszystkie inne struktury, służy do przekazywania struktur pomiędzy funkcjami<br>
 mlx -> do zarządzania oknem
 map -> wszystkie zmienne dotyczące i potrzebne do działania mapy
 player -> wszystkie zmienne potrzebne do obsługi mechaniki gracza
