@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 23:58:54 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/21 23:59:19 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/26 13:25:03 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	open_window(t_mlx *mlx)
 	}
 }
 
-int close_window(t_mlx *mlx)
+int	close_window(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	exit(0);
+	exit_clear(mlx);
 	return (0);
 }
