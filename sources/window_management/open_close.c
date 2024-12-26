@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   open_close.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 13:25:21 by zuraw            ###   ########.fr       */
+/*   Created: 2024/12/21 23:58:54 by zuraw             #+#    #+#             */
+/*   Updated: 2024/12/26 13:25:03 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int main(int ac, char **av)
+void	open_window(t_mlx *mlx)
 {
-	t_data	data;
-	t_mlx	mlx;
-	
-	if (ac != 2)
-		return (printf("%s\n", INPUT_ERROR), 1);
-	(void)av;
-	data.mlx = &mlx;
-	mlx.data = &data;
-	
-	open_window(data.mlx);
+	mlx->mlx_ptr = mlx_init();
+	if (!mlx->mlx_ptr)
+	{
+		printf("Error\nmlx_init failed\n");
+		exit(1);
+	}
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "cub3d");
+	if (!mlx->win_ptr)
+	{
+		printf("Error\nmlx_new_window failed\n");
+		exit(1);
+	}
+}
 
-	register_events(data.mlx);
-
-	mlx_loop(data.mlx->mlx_ptr);
-
+int	close_window(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	exit_clear(mlx);
 	return (0);
 }
