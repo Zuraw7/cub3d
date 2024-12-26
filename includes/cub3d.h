@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 17:09:28 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/26 17:10:09 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_map		*map;
+	t_player	*player;
 	void		*window;
 	int			win_height;
 	int			win_width;
-	t_player	player;
 }				t_data;
 
 typedef struct s_mlx
