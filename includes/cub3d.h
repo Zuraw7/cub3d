@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 14:21:19 by alicja           ###   ########.fr       */
+/*   Updated: 2024/12/26 14:36:52 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ typedef struct s_mlx	t_mlx;
 typedef struct s_map	t_map;
 typedef struct s_player	t_player;
 
-typedef struct s_map
-{
-	int		floor_color;
-	int		ceiling_color;
-	int		max_height;
-	int		max_width;
-}				t_map;
-
 typedef struct s_data
 {
 	t_mlx		*mlx;
@@ -59,9 +51,11 @@ typedef struct s_mlx
 
 typedef struct s_map
 {
-	int	**map;
-	int	width;
-	int	height;
+	int		floor_color;
+	int		ceiling_color;
+	int		**map;
+	int		width;
+	int		height;
 }				t_map;
 
 typedef struct s_player
