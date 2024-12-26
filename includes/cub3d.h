@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 14:36:52 by alicja           ###   ########.fr       */
+/*   Updated: 2024/12/26 17:07:38 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ typedef struct s_map
 {
 	int		floor_color;
 	int		ceiling_color;
-	int		**map;
+	char	**map;
 	int		width;
 	int		height;
+	t_data	*data;
 }				t_map;
 
 typedef struct s_player
@@ -64,6 +65,7 @@ typedef struct s_player
 	float	y;
 	float	dir;
 	float	fov;
+	t_data	*data;
 }				t_player;
 
 /*	FUNCTIONS	*/
@@ -71,15 +73,15 @@ typedef struct s_player
 /*	window_management	*/
 // open_close.c
 void	open_window(t_mlx *mlx);
-int		close_window(t_mlx *mlx);
+int		close_window(t_data *data);
 
 /*	keyboard-events	*/
 // keyboard_input.c
-int		key_press(int keycode, t_mlx *mlx);
-void	register_events(t_mlx *mlx);
+int		key_press(int keycode, t_data *data);
+void	register_events(t_data *data);
 
 /*	utils	*/
 // utils.c
-void	exit_clear(t_mlx *mlx);
+void	exit_clear(t_data *data);
 
 #endif
