@@ -5,6 +5,7 @@ Ray-casting / mini Wolfenstein 3D
 
 1. [raycasting](https:mediumcom@rtailidouniaraycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2)
 2. [reactive](https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/)
+3. [raycasting youtube](https://www.youtube.com/watch?v=gYRrGTC7GtA&list=PLCWsH9Tj9oWyDM4W43VMj5yo2PdyYMGst)
 
 # Układ struktur
 
