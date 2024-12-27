@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:16:34 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:14 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,28 @@ int main(int ac, char **av)
 	
 	if (ac != 2)
 		return (printf("%s\n", INPUT_ERROR), 1);
-	(void)av;
-	set_data(&data);
-
-	// 1. sprawdzić poprawność pliku podanego jako argument
 	
 
-	// 2. read map
-	data.map->map = read_map(av[1]);
-	if (!data.map->map)
+	// 1. check file -> sprawdzenie poprawności pliku, czy jest .cub
+	check_file(av[1]);
+
+	set_data(&data);
+	
+	/*
+		Process map file
+		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->map
+		2. sprawdzenie poprawności zmiennych mapy
+		3. sprawdzenie poprawności mapy
+	*/
+	if (process_map_file(data.map, av[1]) == 1)
 		return (1);
 	
+	for (int i = 0; data.map->map[i]; i++)
+		printf("%s", data.map->map[i]);
+	printf("\n");
+	
+	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
+
 	open_window(data.mlx);
 
 	register_events(&data);

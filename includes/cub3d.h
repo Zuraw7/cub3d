@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:10:38 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:24 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,9 @@ void	clear_playmap(t_map *map);
 /*	map_reader	*/
 // copy_map_file.c
 char	**read_map(char *file);
+
+// process_map_file.c
+void	check_file(char *file);
+int		process_map_file(t_map *map, char *file);
 
 #endif

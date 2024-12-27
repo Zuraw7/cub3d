@@ -6,30 +6,14 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 17:57:12 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:17:37 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 18:56:01 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static char	**resize_map(char **map, size_t current_size)
-{
-	map = (char **)my_realloc(map, current_size * sizeof(char *),
-			(current_size + 1) * sizeof(char *));
-	if (!map)
-		return (printf("Error: malloc failed\n"), NULL);
-	map[current_size] = NULL;
-	return (map);
-}
-
-static char	**set_null(char **map, int i)
-{
-	map = my_realloc(map, i * sizeof(char *), (i + 1) * sizeof(char *));
-	if (!map)
-		return (printf("Error: malloc failed\n"), NULL);
-	map[i] = NULL;
-	return (map);
-}
+static char	**resize_map(char **map, size_t current_size);
+static char	**set_null(char **map, int i);
 
 /*
 	Funkcja czytająca plik mapy
@@ -67,5 +51,24 @@ char	**read_map(char *file)
 	}
 	map = set_null(map, i);
 	close(fd);
+	return (map);
+}
+
+static char	**resize_map(char **map, size_t current_size)
+{
+	map = (char **)my_realloc(map, current_size * sizeof(char *),
+			(current_size + 1) * sizeof(char *));
+	if (!map)
+		return (printf("Error: malloc failed\n"), NULL);
+	map[current_size] = NULL;
+	return (map);
+}
+
+static char	**set_null(char **map, int i)
+{
+	map = my_realloc(map, i * sizeof(char *), (i + 1) * sizeof(char *));
+	if (!map)
+		return (printf("Error: malloc failed\n"), NULL);
+	map[i] = NULL;
 	return (map);
 }
