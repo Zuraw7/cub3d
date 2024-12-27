@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 19:40:24 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:55:52 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ void	set_data(t_data *data);
 void	exit_clear(t_data *data);
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
 void	clear_playmap(t_map *map);
+
+// mlx_colors.c
+int	get_rgba(int r, int g, int b, int a);
+int	get_r(int rgba);
+int	get_g(int rgba);
+int	get_b(int rgba);
+int	get_a(int rgba);
+
+// parse_map_utils.c
+int	valid_colors(t_map *map);
 
 /*	map_reader	*/
 // copy_map_file.c
