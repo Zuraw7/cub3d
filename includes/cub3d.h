@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 17:10:09 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 18:10:38 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <unistd.h>
 # include <math.h>
 # include <string.h>
+# include <fcntl.h>
 # include <sys/time.h>
 # include "./minilibx/mlx.h"
+# include "./libft/libft.h"
 # include "mlx_colors.h"
 
 /*	DEFINES	*/
@@ -89,6 +91,13 @@ void	register_events(t_data *data);
 
 /*	utils	*/
 // utils.c
+void	set_data(t_data *data);
 void	exit_clear(t_data *data);
+void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
+void	clear_playmap(t_map *map);
+
+/*	map_reader	*/
+// copy_map_file.c
+char	**read_map(char *file);
 
 #endif

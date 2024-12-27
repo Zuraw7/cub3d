@@ -10,7 +10,12 @@ LIBFT = $(LIBFT_PATH)/libft.a
 LIBFT_PATH = includes/libft
 
 SRC_PATH = sources/
-SRC = $(wildcard $(SRC_PATH)*.c $(SRC_PATH)keyboard-events/*.c $(SRC_PATH)window_management/*.c $(SRC_PATH)utils/*.c $(SRC_PATH)mouse-events/*.c)
+SRC =	$(wildcard $(SRC_PATH)*.c \
+		$(SRC_PATH)keyboard-events/*.c \
+		$(SRC_PATH)window_management/*.c \
+		$(SRC_PATH)utils/*.c \
+		$(SRC_PATH)mouse-events/*.c \
+		$(SRC_PATH)map_reader/*.c )
 
 OBJ_PATH = objects/
 OBJ = $(SRC:$(SRC_PATH)%.c=%.o)

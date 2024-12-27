@@ -6,18 +6,11 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/26 17:12:32 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/27 18:16:34 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// map reader
-char	**read_map(char *file)
-{
-	(void)file;
-	return (NULL);
-}
 
 int main(int ac, char **av)
 {
@@ -28,9 +21,13 @@ int main(int ac, char **av)
 	(void)av;
 	set_data(&data);
 
-	printf("%s\n", av[1]);
-	// read map
+	// 1. sprawdzić poprawność pliku podanego jako argument
+	
+
+	// 2. read map
 	data.map->map = read_map(av[1]);
+	if (!data.map->map)
+		return (1);
 	
 	open_window(data.mlx);
 
