@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:06:37 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:52:06 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	set_data(t_data *data)
 		printf("Error: malloc failed\n");
 		exit(1);
 	}
+	mlx->mlx_ptr = NULL;
+	mlx->win_ptr = NULL;
 	data->mlx = mlx;
 	mlx->data = data;
 	data->map = map;
@@ -94,9 +96,11 @@ int	is_line_empty(char *line)
 
 void	exit_clear(t_data *data)
 {
-	mlx_destroy_display(data->mlx->mlx_ptr);
-	free_map(data->map);
-	free(data->player);
-	free(data->mlx);
+	if (data->map)
+		free_map(data->map);
+	if (data->player)
+		free(data->player);
+	if (data->mlx)
+		free(data->mlx);
 	exit(0);
 }

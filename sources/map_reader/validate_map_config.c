@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:07 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:36:27 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:39:49 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,13 @@ static int	get_color(t_map *map, char *line)
 		line++;
 	if (ft_strncmp(line, "C", 1) == 0)
 	{
-		if (map->hold_cf_color[0])
-			return (0);
-		map->hold_cf_color[0] = ft_strdup(line + 1);
+		if (map->hold_cf_color[0] == NULL)
+			map->hold_cf_color[0] = ft_strdup(line + 1);
 	}
 	else if (ft_strncmp(line, "F", 1) == 0)
 	{
-		if (map->hold_cf_color[1])
-			return (0);
-		map->hold_cf_color[1] = ft_strdup(line + 1);
+		if (map->hold_cf_color[1] == NULL)
+			map->hold_cf_color[1] = ft_strdup(line + 1);
 	}
 	else
 		return (0);
