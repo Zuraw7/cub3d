@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:07 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 20:48:51 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 20:51:39 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@
 	4. jeżeli NO, EA, SO, WE -> zwraca 1
 	5. jeżeli nie NO, EA, SO, WE -> zwraca 0
 */
-static int	get_texture(t_map *map, char *line, int *count)
+static int	get_texture(t_map *map, char *line)
 {
 	if (!line || is_line_empty(line))
 		return (0);
 	while (!ft_isalnum(*line))
 		line++;
 	if (ft_strncmp(line, "NO", 2) == 0)
-		set_tex_path(map, 0, line, count);
+		set_tex_path(map, 0, line);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-			set_tex_path(map, 1, line, count);
+			set_tex_path(map, 1, line);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-			set_tex_path(map, 2, line, count);
+			set_tex_path(map, 2, line);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-			set_tex_path(map, 3, line, count);
+			set_tex_path(map, 3, line);
 	else
 		return (0);
 	return (1);
@@ -60,7 +60,7 @@ static int	get_texture(t_map *map, char *line, int *count)
 	4. jeżeli C, F -> zwraca 1
 	5. jeżeli nie C, F -> zwraca 0
 */
-static int	get_color(t_map *map, char *line, int *count)
+static int	get_color(t_map *map, char *line)
 {
 	if (!line || is_line_empty(line))
 		return (0);
@@ -69,18 +69,12 @@ static int	get_color(t_map *map, char *line, int *count)
 	if (ft_strncmp(line, "C", 1) == 0)
 	{
 		if (map->hold_cf_color[0] == NULL)
-		{
 			map->hold_cf_color[0] = ft_strdup(line + 1);
-			(*count)++;
-		}
 	}
 	else if (ft_strncmp(line, "F", 1) == 0)
 	{
 		if (map->hold_cf_color[1] == NULL)
-		{
 			map->hold_cf_color[1] = ft_strdup(line + 1);
-			(*count)++;
-		}
 	}
 	else
 		return (0);
@@ -131,11 +125,11 @@ int	validate_map_config(t_map *map)
 		if (check_is_map(map->map[i]))
 			break ;
 		// przypisanie NO, EA, SO, WE
-		if (!is_line_empty(map->map[i]) && get_texture(map, map->map[i], &count))
-			i = i;
+		if (!is_line_empty(map->map[i]) && get_texture(map, map->map[i]))
+			count++;
 		// zczytanie C, F do hold_color
-		if (!is_line_empty(map->map[i]) && get_color(map, map->map[i], &count))
-			i = i;
+		if (!is_line_empty(map->map[i]) && get_color(map, map->map[i]))
+			count++;
 		i++;
 	}
 	if (count != 6)
