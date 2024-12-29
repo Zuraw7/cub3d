@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:07 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:39:49 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 20:03:46 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static int	get_color(t_map *map, char *line)
 /*
 	1. Alokuje miejsce dla NO, EA, SO, WE oraz C, F
 	2. Pętla while
+		a. check_is_map -> sprawdza czy jest znajdzie najpierw, jeżeli tak to wychodzi z pętli -> mapa musi zacząć się od 1 -> otoczona ścianami
 		a. przechodzi przez całą mapę lub do znalezienia 6 info
 		b. odpala get_texture
 		c. odpala get_color
@@ -92,6 +93,20 @@ static int	get_color(t_map *map, char *line)
 	4. ustawienie kolorów i zwolnienie map->hold_cf_color (usunąć z free_map)
 	
 */
+
+int check_is_map(char *line)
+{
+	char	*trimmed;
+
+	if (!line || is_line_empty(line))
+		return (0);
+	trimmed = ft_strtrim(line, " \t\v\r");
+	if (ft_isdigit(trimmed[0]) == 1)
+		return (free(trimmed), 1);
+	free(trimmed);
+	return (0);
+}
+
 int	validate_map_config(t_map *map)
 {
 	int	i;
@@ -107,6 +122,8 @@ int	validate_map_config(t_map *map)
 	count = 0;
 	while (map->map[i])
 	{
+		if (check_is_map(map->map[i]))
+			break ;
 		// przypisanie NO, EA, SO, WE
 		if (!is_line_empty(map->map[i]) && get_texture(map, map->map[i]))
 			count++;
