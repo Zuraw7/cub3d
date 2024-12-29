@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:35:31 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 20:48:18 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ int		validate_map_config(t_map *map);
 // validate_map_config.c
 char	**alloc_nesw(void);
 char	**alloc_color(void);
-void	set_tex_path(t_map *map, int i, char *line);
+void	set_tex_path(t_map *map, int i, char *line, int *count);
 
 #endif

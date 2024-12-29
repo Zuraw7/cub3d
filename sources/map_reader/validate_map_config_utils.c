@@ -6,16 +6,19 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:32:12 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:35:13 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 20:47:59 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	set_tex_path(t_map *map, int i, char *line)
+void	set_tex_path(t_map *map, int i, char *line, int *count)
 {
 	if (map->nesw_textures[i] == NULL)
+	{
 		map->nesw_textures[i] = ft_strdup(line + 2);
+		(*count)++;
+	}
 }
 
 char	**alloc_nesw(void)
