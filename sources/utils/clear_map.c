@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_map_file.c                                 :+:      :+:    :+:   */
+/*   clear_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 18:30:30 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:31:00 by zuraw            ###   ########.fr       */
+/*   Created: 2024/12/29 18:22:32 by zuraw             #+#    #+#             */
+/*   Updated: 2024/12/29 19:06:26 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	process_map_file(t_map *map, char *file)
+void	clear_playmap(t_map *map)
 {
-	map->map = read_map(file);
-	if (!map->map)
-		return (printf("%s", READ_ERROR), 1);
-	if (validate_map_config(map)) // -> sprawdzenie poprawności zmiennych mapy
-		return (printf("%s", VAL_CONFIG_ERROR), 1);
-	// if (validate_map(map)) // -> sprawdzenie poprawności mapy
-	// 	return (printf("%s", VAL_ERROR), 1);
+	int	i;
 
-	return (0);
+	i = 0;
+	while (map->map[i])
+	{
+		free(map->map[i]);
+		i++;
+	}
+	free(map->map);
+	map->map = NULL;
+}
+
+void	free_map(t_map *map)
+{
+	clear_playmap(map);
+	free_double_arr(map->nesw_textures);
+	free_double_arr(map->hold_cf_color);
+	free(map);
 }

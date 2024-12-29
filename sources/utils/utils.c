@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:18:14 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:06:37 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,47 @@ void	set_data(t_data *data)
 	player->data = data;
 }
 
-void	clear_playmap(t_map *map)
+void	free_double_arr(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+//	checks if character is a whitespace
+int ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
+}
+
+//	checks if line is empty, returns 1 if true 0 if false
+int	is_line_empty(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (line[i])
 	{
-		free(map->map[i]);
+		if (!ft_isspace(line[i]))
+			return (0);
 		i++;
 	}
-	free(map->map);
-	map->map = NULL;
+	return (1);
 }
 
 void	exit_clear(t_data *data)
 {
 	mlx_destroy_display(data->mlx->mlx_ptr);
-	clear_playmap(data->map);
-	free(data->map);
+	free_map(data->map);
 	free(data->player);
 	free(data->mlx);
 	exit(0);

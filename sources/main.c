@@ -6,11 +6,13 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 19:40:14 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:37:22 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	check_file(char *file);
 
 int main(int ac, char **av)
 {
@@ -30,12 +32,24 @@ int main(int ac, char **av)
 		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->map
 		2. sprawdzenie poprawności zmiennych mapy
 		3. sprawdzenie poprawności mapy
+		Jeżeli error -> zwraca 1
 	*/
 	if (process_map_file(data.map, av[1]) == 1)
-		return (1);
+		return (exit_clear(&data), 1);
 	
 	for (int i = 0; data.map->map[i]; i++)
 		printf("%s", data.map->map[i]);
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	
+	for (int i = 0; data.map->nesw_textures[i]; i++)
+		printf("%s", data.map->nesw_textures[i]);
+	printf("\n");
+	printf("\n");
+
+	for (int i = 0; data.map->hold_cf_color[i]; i++)
+		printf("%s", data.map->hold_cf_color[i]);
 	printf("\n");
 	
 	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
@@ -47,4 +61,16 @@ int main(int ac, char **av)
 	mlx_loop(data.mlx->mlx_ptr);
 
 	return (0);
+}
+
+void check_file(char *file)
+{
+	int i;
+
+	i = ft_strlen(file);
+	if (i < 5 || ft_strncmp(&file[i - 4], ".cub", 4))
+	{
+		printf("Error: Invalid file\n");
+		exit(1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 19:55:52 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:35:31 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,18 @@
 # define HEIGHT 600
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
+# define READ_ERROR "Error: Failed to load map\n"
+# define VAL_CONFIG_ERROR "Error: Invalid map configuration\n"
+# define VAL_ERROR "Error: Invalid map\n"
 
 # define MOUSE_EDGE_LIMIT 30
 
 /*	STRUCTS	*/
 
-typedef struct s_data	t_data;
-typedef struct s_mlx	t_mlx;
-typedef struct s_map	t_map;
-typedef struct s_player	t_player;
+typedef struct s_data		t_data;
+typedef struct s_mlx		t_mlx;
+typedef struct s_map		t_map;
+typedef struct s_player		t_player;
 
 typedef struct s_data
 {
@@ -61,6 +64,8 @@ typedef struct s_map
 {
 	int		floor_color;
 	int		ceiling_color;
+	char	**hold_cf_color;	// 0 - C, 1 - F, 2 - NULL
+	char	**nesw_textures;	// 0 - NO, 1 - EA, 2 - SO, 3 - WE, 4 - NULL
 	char	**map;
 	int		width;
 	int		height;
@@ -79,7 +84,7 @@ typedef struct s_player
 
 /*	FUNCTIONS	*/
 
-/*	window_management	*/
+/*	------window_management------	*/
 // open_close.c
 void	open_window(t_mlx *mlx);
 int		close_window(t_data *data);
@@ -89,11 +94,17 @@ int		close_window(t_data *data);
 int		key_press(int keycode, t_data *data);
 void	register_events(t_data *data);
 
-/*	utils	*/
+/*	------utils------	*/
 // utils.c
 void	set_data(t_data *data);
 void	exit_clear(t_data *data);
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
+void	free_double_arr(char **arr);
+int		ft_isspace(char c);
+int		is_line_empty(char *line);
+
+// clear_map.c
+void	free_map(t_map *map);
 void	clear_playmap(t_map *map);
 
 // mlx_colors.c
@@ -106,12 +117,20 @@ int	get_a(int rgba);
 // parse_map_utils.c
 int	valid_colors(t_map *map);
 
-/*	map_reader	*/
+/*	------map_reader------	*/
 // copy_map_file.c
 char	**read_map(char *file);
 
 // process_map_file.c
 void	check_file(char *file);
 int		process_map_file(t_map *map, char *file);
+
+// validate_map_config.c
+int		validate_map_config(t_map *map);
+
+// validate_map_config.c
+char	**alloc_nesw(void);
+char	**alloc_color(void);
+void	set_tex_path(t_map *map, int i, char *line);
 
 #endif
