@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 17:51:25 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 20:06:18 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,26 +98,28 @@ void	register_events(t_data *data);
 
 /*	------utils------	*/
 // utils.c
-void	set_data(t_data *data);
 void	exit_clear(t_data *data);
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
 void	free_double_arr(char **arr);
 int		ft_isspace(char c);
 int		is_line_empty(char *line);
 
+// set_data.c
+void	set_data(t_data *data);
+
 // clear_map.c
 void	free_map(t_map *map);
 void	clear_playmap(t_map *map);
 
 // mlx_colors.c
-int	get_rgba(int r, int g, int b, int a);
-int	get_r(int rgba);
-int	get_g(int rgba);
-int	get_b(int rgba);
-int	get_a(int rgba);
+int		get_rgba(int r, int g, int b, int a);
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
 
 // parse_map_utils.c
-int	valid_colors(t_map *map);
+int		valid_colors(t_map *map);
 
 /*	------map_reader------	*/
 // copy_map_file.c

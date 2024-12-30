@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:52:06 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 20:05:57 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size)
 	return (new_ptr);
 }
 
-void	set_data(t_data *data)
-{
-	t_mlx		*mlx;
-	t_map		*map;
-	t_player	*player;
-
-	mlx = malloc(sizeof(t_mlx));
-	map = malloc(sizeof(t_map));
-	player = malloc(sizeof(t_player));
-	if (!mlx || !map || !player)
-	{
-		printf("Error: malloc failed\n");
-		exit(1);
-	}
-	mlx->mlx_ptr = NULL;
-	mlx->win_ptr = NULL;
-	data->mlx = mlx;
-	mlx->data = data;
-	data->map = map;
-	map->data = data;
-	data->player = player;
-	player->data = data;
-}
-
 void	free_double_arr(char **arr)
 {
 	int	i;
@@ -73,7 +49,7 @@ void	free_double_arr(char **arr)
 }
 
 //	checks if character is a whitespace
-int ft_isspace(char c)
+int	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\v' || c == '\f' || c == '\r');
