@@ -6,14 +6,15 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:32:12 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 20:51:47 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 18:37:30 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	set_tex_path(t_map *map, int i, char *line)
+void	set_tex_path(t_map *map, int i, char *line, int *count)
 {
+	(*count)++;
 	if (map->nesw_textures[i] == NULL)
 		map->nesw_textures[i] = ft_strdup(line + 2);
 }
@@ -50,4 +51,17 @@ char	**alloc_color(void)
 		i++;
 	}
 	return (hold_cf_color);
+}
+
+int	check_is_map(char *line)
+{
+	char	*trimmed;
+
+	if (!line || is_line_empty(line))
+		return (0);
+	trimmed = ft_strtrim(line, " \t\v\r");
+	if (ft_isdigit(trimmed[0]) == 1)
+		return (free(trimmed), 1);
+	free(trimmed);
+	return (0);
 }

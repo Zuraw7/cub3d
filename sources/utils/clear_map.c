@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 18:22:32 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 20:03:50 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 12:35:40 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,32 @@ void	clear_playmap(t_map *map)
 	map->map = NULL;
 }
 
+static void	free_nesw(t_map *map)
+{
+	if (map->nesw_textures[0])
+		free(map->nesw_textures[0]);
+	if (map->nesw_textures[1])
+		free(map->nesw_textures[1]);
+	if (map->nesw_textures[2])
+		free(map->nesw_textures[2]);
+	if (map->nesw_textures[3])
+		free(map->nesw_textures[3]);
+	free(map->nesw_textures);
+}
+
+static void	free_cf_color(t_map *map)
+{
+	if (map->hold_cf_color[0])
+		free(map->hold_cf_color[0]);
+	if (map->hold_cf_color[1])
+		free(map->hold_cf_color[1]);
+	free(map->hold_cf_color);
+}
+
 void	free_map(t_map *map)
 {
 	clear_playmap(map);
-	free_double_arr(map->nesw_textures);
-	free_double_arr(map->hold_cf_color);
+	free_nesw(map);
+	free_cf_color(map);
 	free(map);
 }

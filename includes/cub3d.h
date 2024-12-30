@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 20:51:19 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 17:51:25 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define READ_ERROR "Error: Failed to load map\n"
 # define VAL_CONFIG_ERROR "Error: Invalid map configuration\n"
 # define VAL_ERROR "Error: Invalid map\n"
+# define TEXTURES_ERROR "Error: Invalid textures\n"
+# define COLORS_ERROR "Error: Invalid colors\n"
 
 # define MOUSE_EDGE_LIMIT 30
 
@@ -128,9 +130,16 @@ int		process_map_file(t_map *map, char *file);
 // validate_map_config.c
 int		validate_map_config(t_map *map);
 
-// validate_map_config.c
+// valid_texture.c
+int		valid_textures(t_map *map);
+
+// check_colors.c
+int		check_colors(t_map *map);
+
+// validate_map_config_utils.c
 char	**alloc_nesw(void);
 char	**alloc_color(void);
-void	set_tex_path(t_map *map, int i, char *line);
+void	set_tex_path(t_map *map, int i, char *line, int *count);
+int		check_is_map(char *line);
 
 #endif

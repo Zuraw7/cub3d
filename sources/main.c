@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/29 19:37:22 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/30 18:31:01 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int main(int ac, char **av)
 	if (ac != 2)
 		return (printf("%s\n", INPUT_ERROR), 1);
 	
-
 	// 1. check file -> sprawdzenie poprawności pliku, czy jest .cub
 	check_file(av[1]);
 
@@ -51,6 +50,9 @@ int main(int ac, char **av)
 	for (int i = 0; data.map->hold_cf_color[i]; i++)
 		printf("%s", data.map->hold_cf_color[i]);
 	printf("\n");
+
+	printf("ceiling_color: %#X\n", data.map->ceiling_color);
+	printf("floor_color: %#X\n", data.map->floor_color);
 	
 	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
 
