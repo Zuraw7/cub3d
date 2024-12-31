@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 17:15:12 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:22:29 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*make_set(void);
 static int	check_neighbour(char **map, char *set, int i, int j);
-static void	count_p_pos(char **map, int i, int j, int *pp);
+static void	count_p_pos(t_map *map, int i, int j, int *pp);
 
 /*
 	1. Stworzenie setu {'0', '1', 'N', 'E', 'S', 'W'}
@@ -48,7 +48,7 @@ int	valid_map_structure(t_map *map)
 			if (!ft_strchr(set, map->map[i][j]))
 				if (check_neighbour(map->map, set, i, j) == 4)
 					return (free(set), 1);
-			count_p_pos(map->map, i, j, &p_pos);
+			count_p_pos(map, i, j, &p_pos);
 		}
 	}
 	if (p_pos != 1)
@@ -92,9 +92,13 @@ static int	check_neighbour(char **map, char *set, int i, int j)
 	return (walls);
 }
 
-static void	count_p_pos(char **map, int i, int j, int *pp)
+static void	count_p_pos(t_map *map, int i, int j, int *pp)
 {
-	if (map[i][j] == 'N' || map[i][j] == 'E'
-			|| map[i][j] == 'S' || map[i][j] == 'W')
+	if (map->map[i][j] == 'N' || map->map[i][j] == 'E'
+			|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
+	{
 		(*pp)++;
+		if (*pp == 1)
+			map->data->player->start_dir = map->map[i][j];		
+	}
 }

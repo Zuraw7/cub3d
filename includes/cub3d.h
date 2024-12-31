@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 17:09:07 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:21:44 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_player
 	float	dir;
 	float	fov;
 	int		has_moved;
+	char	start_dir;
 	t_data	*data;
 }				t_player;
 
