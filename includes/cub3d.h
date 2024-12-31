@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 20:06:18 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:09:07 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_map
 	int		ceiling_color;
 	char	**hold_cf_color;	// 0 - C, 1 - F, 2 - NULL
 	char	**nesw_textures;	// 0 - NO, 1 - EA, 2 - SO, 3 - WE, 4 - NULL
+	char	**file;
 	char	**map;
 	int		width;
 	int		height;
@@ -109,7 +110,7 @@ void	set_data(t_data *data);
 
 // clear_map.c
 void	free_map(t_map *map);
-void	clear_playmap(t_map *map);
+void	clear_map_file(t_map *map);
 
 // mlx_colors.c
 int		get_rgba(int r, int g, int b, int a);
@@ -126,7 +127,6 @@ int		valid_colors(t_map *map);
 char	**read_map(char *file);
 
 // process_map_file.c
-void	check_file(char *file);
 int		process_map_file(t_map *map, char *file);
 
 // validate_map_config.c
@@ -143,5 +143,15 @@ char	**alloc_nesw(void);
 char	**alloc_color(void);
 void	set_tex_path(t_map *map, int i, char *line, int *count);
 int		check_is_map(char *line);
+
+// validate_map.c
+int	validate_map(t_map *map);
+
+// validate_map_copy_map.c
+int	copy_map(t_map *map);
+
+// valid_map_structure.c
+int	valid_map_structure(t_map *map);
+
 
 #endif

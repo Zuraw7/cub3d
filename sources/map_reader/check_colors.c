@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 17:48:42 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:36:28 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:05:00 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	check_colors(t_map *map)
 	i = 0;
 	while (map->hold_cf_color[i])
 	{
-		printf("hold_cf_color[%d]: %s\n", i, map->hold_cf_color[i]);
 		if (count_commas(map->hold_cf_color[i]) != 2)
 			return (1);
 		if (check_is_number(map->hold_cf_color[i]))

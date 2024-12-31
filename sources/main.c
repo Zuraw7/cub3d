@@ -6,13 +6,13 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:31:01 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:08:15 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	check_file(char *file);
+static void	check_file(char *file);
 
 int main(int ac, char **av)
 {
@@ -28,7 +28,7 @@ int main(int ac, char **av)
 	
 	/*
 		Process map file
-		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->map
+		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->file
 		2. sprawdzenie poprawności zmiennych mapy
 		3. sprawdzenie poprawności mapy
 		Jeżeli error -> zwraca 1
@@ -36,23 +36,24 @@ int main(int ac, char **av)
 	if (process_map_file(data.map, av[1]) == 1)
 		return (exit_clear(&data), 1);
 	
-	for (int i = 0; data.map->map[i]; i++)
-		printf("%s", data.map->map[i]);
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	
+	printf("Textures paths:\n");
 	for (int i = 0; data.map->nesw_textures[i]; i++)
 		printf("%s", data.map->nesw_textures[i]);
 	printf("\n");
-	printf("\n");
 
+	printf("RGB values:\n");
 	for (int i = 0; data.map->hold_cf_color[i]; i++)
 		printf("%s", data.map->hold_cf_color[i]);
 	printf("\n");
 
+	printf("Colors:\n");
 	printf("ceiling_color: %#X\n", data.map->ceiling_color);
 	printf("floor_color: %#X\n", data.map->floor_color);
+
+	printf("\nMap:\n");
+	for (int i = 0; data.map->map[i]; i++)
+		printf("%s", data.map->map[i]);
+	printf("\n");
 	
 	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
 
@@ -65,7 +66,7 @@ int main(int ac, char **av)
 	return (0);
 }
 
-void check_file(char *file)
+static void check_file(char *file)
 {
 	int i;
 

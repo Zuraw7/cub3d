@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 20:05:57 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:02:47 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size)
 
 	if (new_size == 0)
 	{
-		free(ptr);
+		if (ptr)
+			free(ptr);
 		return (NULL);
 	}
 	if (!ptr)
