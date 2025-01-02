@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 15:19:11 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/02 16:40:33 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,8 @@ char	**alloc_nesw(void);
 char	**alloc_color(void);
 void	set_tex_path(t_map *map, int i, char *line, int *count);
 int		check_is_map(char *line);
+
+// input_validation.c
+void	input_checker(int argc, char **argv);
 
 #endif

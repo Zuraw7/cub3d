@@ -1,0 +1,21 @@
+#include "../../includes/cub3d.h"
+
+static void	print_instructions(void)
+{
+	printf("%sPlease provide as an argument one of the maps from maps folder \
+example:%s ./cub3d maps/test.cub%s\n");
+	exit(1);
+}
+
+void	input_checker(int argc, char **argv)
+{
+	int	fd;
+
+	if (argc != 2 || ft_strlen(argv[1]) < 4 || ft_strncmp(argv[1]
+			+ ft_strlen(argv[1]) - 4, ".cub", 4))
+		print_instructions();
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		print_instructions();
+	close(fd);
+}
