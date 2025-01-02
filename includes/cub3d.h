@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 17:21:44 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 10:37:15 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data		t_data;
 typedef struct s_mlx		t_mlx;
 typedef struct s_map		t_map;
 typedef struct s_player		t_player;
+typedef struct s_bfs		t_bfs;
 
 typedef struct s_data
 {
@@ -62,17 +63,26 @@ typedef struct s_mlx
 	t_data	*data;
 }				t_mlx;
 
+// Breadth-First Search
+typedef struct s_bfs
+{
+	int		x;
+	int		y;
+	t_bfs	*next;
+}				t_bfs;
+
 typedef struct s_map
 {
-	int		floor_color;
-	int		ceiling_color;
+	int		floor_color;		// RGB kolor podłogi
+	int		ceiling_color;		// RGB kolor sufitu
 	char	**hold_cf_color;	// 0 - C, 1 - F, 2 - NULL
 	char	**nesw_textures;	// 0 - NO, 1 - EA, 2 - SO, 3 - WE, 4 - NULL
-	char	**file;
-	char	**map;
+	char	**file;				// zczytany plik z info i mapą
+	char	**map;				// zczytana mapa
 	int		width;
 	int		height;
 	t_data	*data;
+	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
 typedef struct s_player
@@ -100,18 +110,23 @@ void	register_events(t_data *data);
 
 /*	------utils------	*/
 // utils.c
-void	exit_clear(t_data *data);
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
-void	free_double_arr(char **arr);
 int		ft_isspace(char c);
 int		is_line_empty(char *line);
+char	*make_set(char *list);
+t_bfs	*init_queue(int x, int y);
+
+// clear.c
+void	exit_clear(t_data *data);
+void	free_double_arr(char **arr);
+void	clear_queue(t_bfs *queue);
 
 // set_data.c
 void	set_data(t_data *data);
 
 // clear_map.c
 void	free_map(t_map *map);
-void	clear_map_file(t_map *map);
+void	free_cf_color(t_map *map);
 
 // mlx_colors.c
 int		get_rgba(int r, int g, int b, int a);
@@ -146,13 +161,16 @@ void	set_tex_path(t_map *map, int i, char *line, int *count);
 int		check_is_map(char *line);
 
 // validate_map.c
-int	validate_map(t_map *map);
+int		validate_map(t_map *map);
+char	**bfs_map(t_map *map);
 
 // validate_map_copy_map.c
-int	copy_map(t_map *map);
+int		copy_map(t_map *map);
 
 // valid_map_structure.c
-int	valid_map_structure(t_map *map);
+int		valid_map_structure(t_map *map);
 
+// check_walls.c
+int	check_walls(t_map *map);
 
 #endif

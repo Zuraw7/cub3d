@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 17:22:58 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/01 19:06:19 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,7 @@ int main(int ac, char **av)
 	
 	printf("Textures paths:\n");
 	for (int i = 0; data.map->nesw_textures[i]; i++)
-		printf("%s", data.map->nesw_textures[i]);
-	printf("\n");
-
-	printf("RGB values:\n");
-	for (int i = 0; data.map->hold_cf_color[i]; i++)
-		printf("%s", data.map->hold_cf_color[i]);
+		printf("%s\n", data.map->nesw_textures[i]);
 	printf("\n");
 
 	printf("Colors:\n");
@@ -56,8 +51,9 @@ int main(int ac, char **av)
 	printf("\n");
 
 	printf("\nStarting direction: %c\n\n", data.player->start_dir);
+
+	printf("\t\tZrobione\n1. Zczytanie oraz sprawdzenie scieżek tekstur\n2. Zczytanie, sprawdzenie oraz przeformatowanie kolorów\n3. Zczytanie oraz sprawdzenie mapy\n4. Zczytanie oraz ustawienie kierunku startowego\n\n");
 	
-	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
 
 	open_window(data.mlx);
 

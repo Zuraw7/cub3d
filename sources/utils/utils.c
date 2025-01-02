@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 16:02:47 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 08:24:12 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size)
 	return (new_ptr);
 }
 
-void	free_double_arr(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
 //	checks if character is a whitespace
 int	ft_isspace(char c)
 {
@@ -71,13 +56,35 @@ int	is_line_empty(char *line)
 	return (1);
 }
 
-void	exit_clear(t_data *data)
+char	*make_set(char *list)
 {
-	if (data->map)
-		free_map(data->map);
-	if (data->player)
-		free(data->player);
-	if (data->mlx)
-		free(data->mlx);
-	exit(0);
+	char	*set;
+	int		i;
+	int		len;
+
+	len = ft_strlen(list);
+	set = malloc(sizeof(char) * len + 1);
+	if (!set)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		set[i] = list[i];
+		i++;
+	}
+	set[i] = '\0';
+	return (set);
+}
+
+t_bfs	*init_queue(int x, int y)
+{
+	t_bfs	*new;
+
+	new = malloc(sizeof(t_bfs));
+	if (!new)
+		return (NULL);
+	new->x = x;
+	new->y = y;
+	new->next = NULL;
+	return (new);
 }
