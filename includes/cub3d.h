@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 17:51:25 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 15:19:11 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,14 @@ void	free_map(t_map *map);
 void	clear_playmap(t_map *map);
 
 // mlx_colors.c
-int	get_rgba(int r, int g, int b, int a);
-int	get_r(int rgba);
-int	get_g(int rgba);
-int	get_b(int rgba);
-int	get_a(int rgba);
+int		get_rgba(int r, int g, int b, int a);
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
 
 // parse_map_utils.c
-int	valid_colors(t_map *map);
+int		valid_colors(t_map *map);
 
 /*	------map_reader------	*/
 // copy_map_file.c

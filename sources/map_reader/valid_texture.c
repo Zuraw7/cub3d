@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:25:54 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:35:55 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 15:07:06 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ static int	is_empty_file(int fd)
 	buffer = malloc(1024);
 	if (!buffer)
 		return (perror("Error allocating buffer"), 1);
-	while ((bytes = read(fd, buffer, sizeof(buffer))) > 0)
+	while (1)
 	{
+		bytes = read(fd, buffer, sizeof(buffer));
+		if (bytes <= 0)
+			break ;
 		i = 0;
 		while (i < (size_t)bytes)
 		{

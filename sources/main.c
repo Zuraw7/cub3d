@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:31:01 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 15:16:26 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 void	check_file(char *file);
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
-	
+	int		i;
+
 	if (ac != 2)
 		return (printf("%s\n", INPUT_ERROR), 1);
-	
 	// 1. check file -> sprawdzenie poprawności pliku, czy jest .cub
 	check_file(av[1]);
-
 	set_data(&data);
-	
 	/*
 		Process map file
 		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->map
@@ -35,39 +33,42 @@ int main(int ac, char **av)
 	*/
 	if (process_map_file(data.map, av[1]) == 1)
 		return (exit_clear(&data), 1);
-	
-	for (int i = 0; data.map->map[i]; i++)
+	i = 0;
+	while (data.map->map[i])
+	{
 		printf("%s", data.map->map[i]);
+		i++;
+	}
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	
-	for (int i = 0; data.map->nesw_textures[i]; i++)
+	i = 0;
+	while (data.map->nesw_textures[i])
+	{
 		printf("%s", data.map->nesw_textures[i]);
+		i++;
+	}
 	printf("\n");
 	printf("\n");
-
-	for (int i = 0; data.map->hold_cf_color[i]; i++)
+	i = 0;
+	while (data.map->hold_cf_color[i])
+	{
 		printf("%s", data.map->hold_cf_color[i]);
+		i++;
+	}
 	printf("\n");
-
 	printf("ceiling_color: %#X\n", data.map->ceiling_color);
 	printf("floor_color: %#X\n", data.map->floor_color);
-	
 	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
-
 	open_window(data.mlx);
-
 	register_events(&data);
-
 	mlx_loop(data.mlx->mlx_ptr);
-
 	return (0);
 }
 
-void check_file(char *file)
+void	check_file(char *file)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(file);
 	if (i < 5 || ft_strncmp(&file[i - 4], ".cub", 4))

@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   process_map_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:30:30 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:41:02 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 15:01:45 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*
-	1. zczytanie pliku z mapą do map->map
+/*	1. zczytanie pliku z mapą do map->map
 	2. sprawdzenie poprawności pobranych informacji
 	3. sprawdzenie poprawności mapy
-	4. zmienić ścieżki na takie bez whitespaców -> poprzednie zwolnić i przypisać po trimmowaniu
-*/
+	4. zmienić ścieżki na takie bez whitespaców -> poprzednie zwolnić i przypisać po trimmowaniu*/
 int	process_map_file(t_map *map, char *file)
 {
 	map->map = read_map(file);
