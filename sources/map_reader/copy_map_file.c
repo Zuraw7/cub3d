@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_map_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 17:57:12 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:56:01 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 10:51:39 by astefans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static char	**set_null(char **map, int i);
 		a. Zwiększenie rozmiaru mapy -> resize_map
 		b. Skopiowanie linii do mapy -> ft_strdup
 	4. Ustawienie null na końcu mapy -> set_null
-	5. Zamknięcie pliku
-	6. Zwrócenie mapy
+>	6. Zwrócenie mapy
 */
 char	**read_map(char *file)
 {
