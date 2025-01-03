@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 10:51:08 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 14:27:37 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,24 @@ typedef struct s_map
 	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
+typedef struct s_ray
+{
+	double	x_dir; // wektor kierunku x
+	double	y_dir; // wektor kierunku y
+	double	camera_x; // x na płaszczyźnie ekranu
+	int		map_x; // pozycja x na mapie
+	int		map_y; // pozycja y na mapie
+}				t_ray;
+
 typedef struct s_player
 {
-	float	x;
-	float	y;
+	float	x; // pozycja x gracza
+	float	y; // pozycja y gracza
+	float	dir_x; // wektor kierunku x gracza
+	float	dir_y; // wektor kierunku y gracza
 	float	dir;
-	float	fov;
-	int		has_moved;
+	float	fov; //oba do obliczenia kąta widzenia - to do!
+	//int		has_moved;
 	char	start_dir;
 	t_data	*data;
 }				t_player;
@@ -175,5 +186,8 @@ int	check_walls(t_map *map);
 
 // input_validation.c
 void	input_checker(int argc, char **argv);
+
+//raycasting.c
+void	ray_direction(int x, t_ray *ray, t_player *player);
 
 #endif

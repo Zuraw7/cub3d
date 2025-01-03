@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astefans <astefans@student.42.fr>          +#+  +:+       +#+         #
+#    By: alicja <alicja@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/03 10:48:32 by astefans          #+#    #+#              #
-#    Updated: 2025/01/03 10:48:46 by astefans         ###   ########.fr        #
+#    Updated: 2025/01/03 14:01:18 by alicja           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC =	$(wildcard $(SRC_PATH)*.c \
 		$(SRC_PATH)window_management/*.c \
 		$(SRC_PATH)utils/*.c \
 		$(SRC_PATH)mouse-events/*.c \
-		$(SRC_PATH)map_reader/*.c )
+		$(SRC_PATH)map_reader/*.c \
+		$(SRC_PATH)raycasting/*.c )
 
 OBJ_PATH = objects/
 OBJ = $(SRC:$(SRC_PATH)%.c=%.o)
