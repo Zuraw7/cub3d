@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:07 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 18:35:40 by zuraw            ###   ########.fr       */
+/*   Updated: 2024/12/31 15:34:44 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int	validate_map_config(t_map *map)
 		return (1);
 	i = 0;
 	count = 0;
-	while (map->map[i])
+	while (map->file[i])
 	{
-		if (check_is_map(map->map[i]))
+		if (check_is_map(map->file[i]))
 			break ;
-		get_texture(map, map->map[i], &count);
-		get_color(map, map->map[i], &count);
+		get_texture(map, map->file[i], &count);
+		get_color(map, map->file[i], &count);
 		i++;
 	}
 	if (count != 6)

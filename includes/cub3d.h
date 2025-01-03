@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 16:40:33 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/03 10:51:08 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data		t_data;
 typedef struct s_mlx		t_mlx;
 typedef struct s_map		t_map;
 typedef struct s_player		t_player;
+typedef struct s_bfs		t_bfs;
 
 typedef struct s_data
 {
@@ -62,16 +63,26 @@ typedef struct s_mlx
 	t_data	*data;
 }				t_mlx;
 
+// Breadth-First Search
+typedef struct s_bfs
+{
+	int		x;
+	int		y;
+	t_bfs	*next;
+}				t_bfs;
+
 typedef struct s_map
 {
-	int		floor_color;
-	int		ceiling_color;
+	int		floor_color;		// RGB kolor podłogi
+	int		ceiling_color;		// RGB kolor sufitu
 	char	**hold_cf_color;	// 0 - C, 1 - F, 2 - NULL
 	char	**nesw_textures;	// 0 - NO, 1 - EA, 2 - SO, 3 - WE, 4 - NULL
-	char	**map;
+	char	**file;				// zczytany plik z info i mapą
+	char	**map;				// zczytana mapa
 	int		width;
 	int		height;
 	t_data	*data;
+	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
 typedef struct s_player
@@ -81,6 +92,7 @@ typedef struct s_player
 	float	dir;
 	float	fov;
 	int		has_moved;
+	char	start_dir;
 	t_data	*data;
 }				t_player;
 
@@ -98,16 +110,23 @@ void	register_events(t_data *data);
 
 /*	------utils------	*/
 // utils.c
-void	set_data(t_data *data);
-void	exit_clear(t_data *data);
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
-void	free_double_arr(char **arr);
 int		ft_isspace(char c);
 int		is_line_empty(char *line);
+char	*make_set(char *list);
+t_bfs	*init_queue(int x, int y);
+
+// clear.c
+void	exit_clear(t_data *data);
+void	free_double_arr(char **arr);
+void	clear_queue(t_bfs *queue);
+
+// set_data.c
+void	set_data(t_data *data);
 
 // clear_map.c
 void	free_map(t_map *map);
-void	clear_playmap(t_map *map);
+void	free_cf_color(t_map *map);
 
 // mlx_colors.c
 int		get_rgba(int r, int g, int b, int a);
@@ -124,7 +143,6 @@ int		valid_colors(t_map *map);
 char	**read_map(char *file);
 
 // process_map_file.c
-void	check_file(char *file);
 int		process_map_file(t_map *map, char *file);
 
 // validate_map_config.c
@@ -141,6 +159,19 @@ char	**alloc_nesw(void);
 char	**alloc_color(void);
 void	set_tex_path(t_map *map, int i, char *line, int *count);
 int		check_is_map(char *line);
+
+// validate_map.c
+int		validate_map(t_map *map);
+char	**bfs_map(t_map *map);
+
+// validate_map_copy_map.c
+int		copy_map(t_map *map);
+
+// valid_map_structure.c
+int		valid_map_structure(t_map *map);
+
+// check_walls.c
+int	check_walls(t_map *map);
 
 // input_validation.c
 void	input_checker(int argc, char **argv);
