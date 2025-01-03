@@ -3,7 +3,7 @@
 static void	print_instructions(void)
 {
 	printf("%sPlease provide as an argument one of the maps from maps folder \
-example:%s ./cub3d maps/test.cub%s\n");
+		example:%s ./cub3d maps/test.cub%s\n", "\033[1;31m", "\033[1;33m", "\033[0m");
 	exit(1);
 }
 

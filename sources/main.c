@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 10:52:21 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 11:05:49 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,10 @@ int	main(int ac, char **av)
 	i = 0;
 	while (data.map->nesw_textures[i])
 	{
-		printf("%s", data.map->nesw_textures[i]);
+		printf("%s\n", data.map->nesw_textures[i]);
 		i++;
 	}
 	printf("\n");
-	printf("\n");
-	i = 0;
-	while (data.map->hold_cf_color[i])
-	{
-		printf("%s", data.map->hold_cf_color[i]);
-		i++;
-	}
 	printf("\n");
 	printf("ceiling_color: %#X\n", data.map->ceiling_color);
 	printf("floor_color: %#X\n", data.map->floor_color);
