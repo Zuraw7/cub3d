@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:01:14 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 14:57:35 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 15:31:36 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,30 @@
 static void	move_player(t_player *player, int keycode)
 {
 	float	move_speed;
-	
-	move_speed = 0.1;
+
+	move_speed = 0.2;
 	if (keycode == 119)
+	{
+		player->x += cos(player->dir) * move_speed;
 		player->y -= sin(player->dir) * move_speed;
+	}
 	else if (keycode == 115)
+	{
+		player->x -= cos(player->dir) * move_speed;
 		player->y += sin(player->dir) * move_speed;
+	}
 	else if (keycode == 97)
+	{
 		player->x += cos(player->dir + PI / 2) * move_speed;
+		player->y -= sin(player->dir + PI / 2) * move_speed;
+	}
 	else if (keycode == 100)
-		player->x += cos(player->dir - PI / 2) * move_speed;
+	{
+		player->x -= cos(player->dir + PI / 2) * move_speed;
+		player->y += sin(player->dir + PI / 2) * move_speed;
+	}
 }
+
 
 static void rotate_player(t_player *player, int keycode)
 {
