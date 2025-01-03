@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 09:25:44 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 14:23:29 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static void	count_p_pos(t_map *map, int i, int j, int *pp)
 			map->data->player->start_dir = map->map[i][j];
 			map->data->player->x = j;
 			map->data->player->y = i;
+			set_player_dir(map->data->player);
 		}
 	}
 }

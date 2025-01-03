@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 10:51:08 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 14:56:52 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define WIDTH 800
 # define HEIGHT 600
 
+# define PX 32
+# define PI 3.14159265359
+
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
 # define READ_ERROR "Error: Failed to load map\n"
 # define VAL_CONFIG_ERROR "Error: Invalid map configuration\n"
@@ -45,12 +48,15 @@ typedef struct s_mlx		t_mlx;
 typedef struct s_map		t_map;
 typedef struct s_player		t_player;
 typedef struct s_bfs		t_bfs;
+typedef struct s_img		t_img;
+typedef struct s_keys		t_keys;
 
 typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_map		*map;
 	t_player	*player;
+	t_img		*minimap;
 	void		*window;
 	int			win_height;
 	int			win_width;
@@ -85,7 +91,19 @@ typedef struct s_map
 	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
-typedef struct s_player
+typedef struct	s_img
+{
+	void	*img_ptr;			// Wskaźnik na obraz
+	char	*addr;				// Dane obrazu
+	int		bits_per_pixel;		// Liczba bitów na piksel
+	int		line_length;		// Rozmiar jednej linii w bajtach
+	int		endian;				// Porządek bajtów
+	int		width;				// Szerokość obrazu
+	int		height;				// Wysokość obrazu
+	t_data	*data;
+}				t_img;
+
+typedef struct	s_player
 {
 	float	x;
 	float	y;
@@ -98,6 +116,9 @@ typedef struct s_player
 
 /*	FUNCTIONS	*/
 
+t_img	*init_img(t_data *data, void *mlx_ptr);
+void	set_player_dir(t_player *player);
+
 /*	------window_management------	*/
 // open_close.c
 void	open_window(t_mlx *mlx);
@@ -105,7 +126,7 @@ int		close_window(t_data *data);
 
 /*	keyboard-events	*/
 // keyboard_input.c
-int		key_press(int keycode, t_data *data);
+int		key_checker(int keycode, t_data *data);
 void	register_events(t_data *data);
 
 /*	------utils------	*/
@@ -171,7 +192,7 @@ int		copy_map(t_map *map);
 int		valid_map_structure(t_map *map);
 
 // check_walls.c
-int	check_walls(t_map *map);
+int		check_walls(t_map *map);
 
 // input_validation.c
 void	input_checker(int argc, char **argv);
