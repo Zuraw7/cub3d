@@ -6,25 +6,11 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 18:22:32 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/30 12:35:40 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/02 08:34:16 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	clear_playmap(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->map[i])
-	{
-		free(map->map[i]);
-		i++;
-	}
-	free(map->map);
-	map->map = NULL;
-}
 
 static void	free_nesw(t_map *map)
 {
@@ -39,7 +25,7 @@ static void	free_nesw(t_map *map)
 	free(map->nesw_textures);
 }
 
-static void	free_cf_color(t_map *map)
+void	free_cf_color(t_map *map)
 {
 	if (map->hold_cf_color[0])
 		free(map->hold_cf_color[0]);
@@ -50,8 +36,7 @@ static void	free_cf_color(t_map *map)
 
 void	free_map(t_map *map)
 {
-	clear_playmap(map);
+	free_double_arr(map->map);
 	free_nesw(map);
-	free_cf_color(map);
 	free(map);
 }

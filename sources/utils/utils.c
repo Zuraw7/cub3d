@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 15:08:46 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/03 10:52:56 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size)
 
 	if (new_size == 0)
 	{
-		free(ptr);
+		if (ptr)
+			free(ptr);
 		return (NULL);
 	}
 	if (!ptr)
@@ -31,45 +32,6 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size)
 	ft_memcpy(new_ptr, ptr, old_size);
 	free(ptr);
 	return (new_ptr);
-}
-
-void	set_data(t_data *data)
-{
-	t_mlx		*mlx;
-	t_map		*map;
-	t_player	*player;
-
-	mlx = malloc(sizeof(t_mlx));
-	map = malloc(sizeof(t_map));
-	player = malloc(sizeof(t_player));
-	if (!mlx || !map || !player)
-	{
-		printf("Error: malloc failed\n");
-		exit(1);
-	}
-	mlx->mlx_ptr = NULL;
-	mlx->win_ptr = NULL;
-	data->mlx = mlx;
-	mlx->data = data;
-	data->map = map;
-	map->data = data;
-	data->player = player;
-	player->data = data;
-}
-
-void	free_double_arr(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }
 
 //	checks if character is a whitespace
@@ -94,13 +56,35 @@ int	is_line_empty(char *line)
 	return (1);
 }
 
-void	exit_clear(t_data *data)
+char	*make_set(char *list)
 {
-	if (data->map)
-		free_map(data->map);
-	if (data->player)
-		free(data->player);
-	if (data->mlx)
-		free(data->mlx);
-	exit(0);
+	char	*set;
+	int		i;
+	int		len;
+
+	len = ft_strlen(list);
+	set = malloc(sizeof(char) * len + 1);
+	if (!set)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		set[i] = list[i];
+		i++;
+	}
+	set[i] = '\0';
+	return (set);
+}
+
+t_bfs	*init_queue(int x, int y)
+{
+	t_bfs	*new;
+
+	new = malloc(sizeof(t_bfs));
+	if (!new)
+		return (NULL);
+	new->x = x;
+	new->y = y;
+	new->next = NULL;
+	return (new);
 }

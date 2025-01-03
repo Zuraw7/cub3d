@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 15:16:26 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/03 10:52:21 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	check_file(char *file);
+static void	check_file(char *file);
 
 int	main(int ac, char **av)
 {
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 	set_data(&data);
 	/*
 		Process map file
-		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->map
+		1. zczytanie pliku mapy oraz wpisanie go do zmiennej map->file
 		2. sprawdzenie poprawności zmiennych mapy
 		3. sprawdzenie poprawności mapy
 		Jeżeli error -> zwraca 1
@@ -59,14 +59,24 @@ int	main(int ac, char **av)
 	printf("\n");
 	printf("ceiling_color: %#X\n", data.map->ceiling_color);
 	printf("floor_color: %#X\n", data.map->floor_color);
-	// 3. check map -> sprawdzenie poprawności mapy, NO WE EA SO F C oraz mapa zamknięta ścianami
+
+	printf("\nMap:\n");
+	for (int i = 0; data.map->map[i]; i++)
+		printf("%s", data.map->map[i]);
+	printf("\n");
+
+	printf("\nStarting direction: %c\n\n", data.player->start_dir);
+
+	printf("\t\tZrobione\n1. Zczytanie oraz sprawdzenie scieżek tekstur\n2. Zczytanie, sprawdzenie oraz przeformatowanie kolorów\n3. Zczytanie oraz sprawdzenie mapy\n4. Zczytanie oraz ustawienie kierunku startowego\n\n");
+	
+
 	open_window(data.mlx);
 	register_events(&data);
 	mlx_loop(data.mlx->mlx_ptr);
 	return (0);
 }
 
-void	check_file(char *file)
+static void check_file(char *file)
 {
 	int	i;
 
