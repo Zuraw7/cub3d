@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:10 by astefans          #+#    #+#             */
-/*   Updated: 2025/01/03 10:49:13 by astefans         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:43:43 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	print_instructions(void)
 {
 	printf("%sPlease provide as an argument one of the maps from maps folder \
-		example:%s ./cub3d maps/test.cub%s\n", "\033[1;31m", "\033[1;33m", "\033[0m");
+example:%s ./cub3d maps/example.cub%s\n", "\033[1;31m",
+		"\033[1;33m", "\033[0m");
 	exit(1);
 }
 
