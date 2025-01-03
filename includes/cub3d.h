@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 15:06:43 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 15:19:41 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,6 @@ typedef struct	s_player
 
 /*	FUNCTIONS	*/
 
-t_img	*init_img(t_data *data, void *mlx_ptr);
-void	set_player_dir(t_player *player);
-
 /*	------window_management------	*/
 // open_close.c
 void	open_window(t_mlx *mlx);
@@ -208,7 +205,18 @@ int		check_walls(t_map *map);
 // input_validation.c
 void	input_checker(int argc, char **argv);
 
-//raycasting.c
+/*	------raycasting------	*/
+// raycasting.c
 void	ray_direction(int x, t_ray *ray, t_player *player);
+
+// create_img.c
+t_img	*init_img(t_data *data, void *mlx_ptr);
+void	img_pixel_put(t_img *img, int x, int y, int color);
+void	draw_tile_to_image(t_img *img, int x, int y, int color);
+
+// draw_player_map.c
+void	draw_map_to_image(t_data *data);
+void	draw_player_to_image(t_player *player, t_img *img);
+int		render_minimap(t_data *data);
 
 #endif

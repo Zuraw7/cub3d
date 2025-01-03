@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 14:23:29 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/03 15:18:41 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_neighbour(char **map, char *set, int i, int j);
 static void	count_p_pos(t_map *map, int i, int j, int *pp);
 static void	calc_width_height(t_map *map);
+static void	set_player_dir(t_player *player);
 
 /*
 	1. Stworzenie setu {'0', '1', 'N', 'E', 'S', 'W'}
@@ -55,6 +56,18 @@ int	valid_map_structure(t_map *map)
 		return (free(set), 1);
 	calc_width_height(map);
 	return (free(set), 0);
+}
+
+static void	set_player_dir(t_player *player)
+{
+	if (player->start_dir == 'N')
+		player->dir = PI / 2;
+	else if (player->start_dir == 'E')
+		player->dir = 0;
+	else if (player->start_dir == 'S')
+		player->dir = 3 * PI / 2;
+	else if (player->start_dir == 'W')
+		player->dir = PI;
 }
 
 static int	check_neighbour(char **map, char *set, int i, int j)
