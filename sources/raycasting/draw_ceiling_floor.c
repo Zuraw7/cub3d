@@ -6,12 +6,17 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 12:18:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:31:11 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:38:42 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*
+	Dla make_ceiling oraz make floor
+	1. Alokacja pamięci dla obrazu
+	2. Wstawienie pixela w odpowiednie miejsce (adres) obrazu
+*/
 void	make_ceiling(t_data *data)
 {
 	int			color;

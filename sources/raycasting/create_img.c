@@ -6,12 +6,15 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:08:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:27:35 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:42:06 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*
+	Umieszcza pixel w odpowiednim miejscu w obrazie
+*/
 void	img_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -22,6 +25,9 @@ void	img_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+/*
+	Umieszcza kwadraty na minimapie
+*/
 void	draw_tile_to_image(t_img *img, int x, int y, int color)
 {
 	int	i;

@@ -6,12 +6,15 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:30:46 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:40:13 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*
+	Funkcja zapełnia cały obraz tłem o podanym kolorze
+*/
 static void	fill_minimap_background(t_img *image)
 {
 	int	x;
@@ -30,6 +33,9 @@ static void	fill_minimap_background(t_img *image)
 	}
 }
 
+/*
+	Funkcja umieszcza ściany oraz podłogę na minimapie
+*/
 void	draw_map_to_image(t_data *data)
 {
 	int		x;
@@ -59,6 +65,9 @@ void	draw_map_to_image(t_data *data)
 	}
 }
 
+/*
+	Funkcja umieszcza gracza na minimapie w zależności od pozycji
+*/
 void	draw_player_to_image(t_player *player, t_img *img)
 {
 	int		i;
