@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:12:58 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 10:52:56 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:26:57 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,14 @@ char	*make_set(char *list)
 	return (set);
 }
 
-t_bfs	*init_queue(int x, int y)
+void	set_player_dir(t_player *player)
 {
-	t_bfs	*new;
-
-	new = malloc(sizeof(t_bfs));
-	if (!new)
-		return (NULL);
-	new->x = x;
-	new->y = y;
-	new->next = NULL;
-	return (new);
+	if (player->start_dir == 'N')
+		player->dir = PI / 2;
+	else if (player->start_dir == 'E')
+		player->dir = 0;
+	else if (player->start_dir == 'S')
+		player->dir = 3 * PI / 2;
+	else if (player->start_dir == 'W')
+		player->dir = PI;
 }

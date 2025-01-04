@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 15:44:00 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:29:59 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ int	main(int ac, char **av)
 	printf("\nStarting direction: %c\n\n", data.player->start_dir);
 
 	open_window(data.mlx);
-	data.minimap = init_img(&data, data.mlx->mlx_ptr);
 
-	mlx_loop_hook(data.mlx->mlx_ptr, render_minimap, &data);
+	// inicjalizacja i renderowanie img -> podłogi i sufitu raz, one sie nie zmieniaja
+	// minimapa jest zainicjalizowana tutaj, a w hook jest renderowana za kazdym razem troche inaczej
+	data.rend_img->minimap = init_img(&data, data.mlx->mlx_ptr, data.map->width * PX / 4, data.map->height * PX / 4);
+	ceiling_and_floor(&data);
+	mlx_loop_hook(data.mlx->mlx_ptr, render_scene, &data);
 
 	register_events(&data);
 	mlx_loop(data.mlx->mlx_ptr);

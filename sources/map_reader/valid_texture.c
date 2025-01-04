@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:25:54 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 15:07:06 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/04 13:35:31 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ static int	is_empty_file(int fd)
 		while (i < (size_t)bytes)
 		{
 			if (!ft_isspace(buffer[i]))
-			{
-				free(buffer);
-				return (0);
-			}
+				return (free(buffer), 0);
 			i++;
 		}
 	}

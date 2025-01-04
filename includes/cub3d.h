@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 15:19:41 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:27:21 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,19 @@
 
 typedef struct s_data		t_data;
 typedef struct s_mlx		t_mlx;
+typedef struct s_bfs		t_bfs;
 typedef struct s_map		t_map;
 typedef struct s_player		t_player;
-typedef struct s_bfs		t_bfs;
+typedef struct s_ray		t_ray;
 typedef struct s_img		t_img;
-typedef struct s_keys		t_keys;
+typedef struct s_rend_img	t_rend_img;
 
 typedef struct s_data
 {
 	t_mlx		*mlx;
 	t_map		*map;
 	t_player	*player;
-	t_img		*minimap;
+	t_rend_img	*rend_img;
 	void		*window;
 	int			win_height;
 	int			win_width;
@@ -91,6 +92,19 @@ typedef struct s_map
 	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
+typedef struct	s_player
+{
+	float	x; // pozycja x gracza
+	float	y; // pozycja y gracza
+	float	dir_x; // wektor kierunku x gracza
+	float	dir_y; // wektor kierunku y gracza
+	float	dir;
+	float	fov; //oba do obliczenia kąta widzenia - to do!
+	//int		has_moved;
+	char	start_dir;
+	t_data	*data;
+}				t_player;
+
 typedef struct s_ray
 {
 	double	x_dir; // wektor kierunku x
@@ -112,18 +126,13 @@ typedef struct	s_img
 	t_data	*data;
 }				t_img;
 
-typedef struct	s_player
+typedef struct s_rend_img
 {
-	float	x; // pozycja x gracza
-	float	y; // pozycja y gracza
-	float	dir_x; // wektor kierunku x gracza
-	float	dir_y; // wektor kierunku y gracza
-	float	dir;
-	float	fov; //oba do obliczenia kąta widzenia - to do!
-	//int		has_moved;
-	char	start_dir;
+	t_img	*minimap;
+	t_img	*ceiling;
+	t_img	*floor;
 	t_data	*data;
-}				t_player;
+}			t_rend_img;
 
 /*	FUNCTIONS	*/
 
@@ -143,7 +152,7 @@ void	*my_realloc(void *ptr, size_t old_size, size_t new_size);
 int		ft_isspace(char c);
 int		is_line_empty(char *line);
 char	*make_set(char *list);
-t_bfs	*init_queue(int x, int y);
+void	set_player_dir(t_player *player);
 
 // clear.c
 void	exit_clear(t_data *data);
@@ -158,14 +167,18 @@ void	free_map(t_map *map);
 void	free_cf_color(t_map *map);
 
 // mlx_colors.c
-int		get_rgba(int r, int g, int b, int a);
-int		get_r(int rgba);
-int		get_g(int rgba);
-int		get_b(int rgba);
-int		get_a(int rgba);
+int		get_argb(int a, int r, int g, int b);
+int		get_r(int argb);
+int		get_g(int argb);
+int		get_b(int argb);
+int		get_a(int argb);
 
 // parse_map_utils.c
 int		valid_colors(t_map *map);
+
+// inits.c
+t_bfs	*init_queue(int x, int y);
+t_img	*init_img(t_data *data, void *mlx_ptr, int width, int height);
 
 /*	------map_reader------	*/
 // copy_map_file.c
@@ -210,13 +223,17 @@ void	input_checker(int argc, char **argv);
 void	ray_direction(int x, t_ray *ray, t_player *player);
 
 // create_img.c
-t_img	*init_img(t_data *data, void *mlx_ptr);
 void	img_pixel_put(t_img *img, int x, int y, int color);
 void	draw_tile_to_image(t_img *img, int x, int y, int color);
 
 // draw_player_map.c
 void	draw_map_to_image(t_data *data);
 void	draw_player_to_image(t_player *player, t_img *img);
-int		render_minimap(t_data *data);
+int		render_scene(t_data *data);
+
+// draw_ceiling_floor.c
+void	make_ceiling(t_data *data);
+void	make_floor(t_data *data);
+void	ceiling_and_floor(t_data *data);
 
 #endif

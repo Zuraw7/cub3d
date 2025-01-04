@@ -6,33 +6,33 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:18:32 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:18:36 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:04:03 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mlx_colors.h"
 
-int	get_rgba(int r, int g, int b, int a)
+int	get_argb(int a, int r, int g, int b)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	return (a << 24 | r << 16 | g << 8 | b);
 }
 
-int	get_r(int rgba)
+int	get_r(int argb)
 {
-	return ((rgba >> 24) & 0xFF);
+	return ((argb >> 24) & 0xFF);
 }
 
-int	get_g(int rgba)
+int	get_g(int argb)
 {
-	return ((rgba >> 16) & 0xFF);
+	return ((argb >> 16) & 0xFF);
 }
 
-int	get_b(int rgba)
+int	get_b(int argb)
 {
-	return ((rgba >> 8) & 0xFF);
+	return ((argb >> 8) & 0xFF);
 }
 
-int	get_a(int rgba)
+int	get_a(int argb)
 {
-	return (rgba & 0xFF);
+	return (argb & 0xFF);
 }

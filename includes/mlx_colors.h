@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_colors.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:59 by astefans          #+#    #+#             */
-/*   Updated: 2025/01/03 11:00:24 by astefans         ###   ########.fr       */
+/*   Updated: 2025/01/04 13:03:23 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MLX_COLORS_H
 
 // 'Encodes' four individual bytes into an int.
-int	get_rgba(int r, int g, int b, int a);
+int	get_argb(int r, int g, int b, int a);
 
 // Get the red channel.
 int	get_r(int rgba);

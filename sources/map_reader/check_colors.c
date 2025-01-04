@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 17:48:42 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 16:05:00 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:03:11 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,10 @@ static void	set_rgb(t_map *map)
 		perror("Error allocating memory in set_rgb");
 		return ;
 	}
-	map->ceiling_color = get_rgba(ft_atoi(split_c[0]),
-			ft_atoi(split_c[1]), ft_atoi(split_c[2]), 255);
-	map->floor_color = get_rgba(ft_atoi(split_f[0]),
-			ft_atoi(split_f[1]), ft_atoi(split_f[2]), 255);
+	map->ceiling_color = get_argb(255, ft_atoi(split_c[0]),
+			ft_atoi(split_c[1]), ft_atoi(split_c[2]));
+	map->floor_color = get_argb(255, ft_atoi(split_f[0]),
+			ft_atoi(split_f[1]), ft_atoi(split_f[2]));
 	free_double_arr(split_c);
 	free(trimmed_c);
 	free_double_arr(split_f);

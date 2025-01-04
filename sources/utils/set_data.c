@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:05:33 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 14:57:47 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 12:13:00 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	set_data(t_data *data)
 	t_mlx		*mlx;
 	t_map		*map;
 	t_player	*player;
+	t_rend_img	*rend_img;
 
 	mlx = malloc(sizeof(t_mlx));
 	map = malloc(sizeof(t_map));
 	player = malloc(sizeof(t_player));
-	if (!mlx || !map || !player)
+	rend_img = malloc(sizeof(t_rend_img));
+	if (!mlx || !map || !player || !rend_img)
 	{
 		printf("Error: malloc failed\n");
 		exit(1);
@@ -46,4 +48,10 @@ void	set_data(t_data *data)
 	// player
 	player->data = data;
 	data->player = player;
+	// rend_img
+	rend_img->data = data;
+	rend_img->minimap = NULL;
+	rend_img->ceiling = NULL;
+	rend_img->floor = NULL;
+	data->rend_img = rend_img;
 }

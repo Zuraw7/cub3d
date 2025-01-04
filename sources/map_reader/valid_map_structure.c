@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 15:18:41 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:25:50 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	check_neighbour(char **map, char *set, int i, int j);
 static void	count_p_pos(t_map *map, int i, int j, int *pp);
 static void	calc_width_height(t_map *map);
-static void	set_player_dir(t_player *player);
 
 /*
 	1. Stworzenie setu {'0', '1', 'N', 'E', 'S', 'W'}
@@ -58,18 +57,6 @@ int	valid_map_structure(t_map *map)
 	return (free(set), 0);
 }
 
-static void	set_player_dir(t_player *player)
-{
-	if (player->start_dir == 'N')
-		player->dir = PI / 2;
-	else if (player->start_dir == 'E')
-		player->dir = 0;
-	else if (player->start_dir == 'S')
-		player->dir = 3 * PI / 2;
-	else if (player->start_dir == 'W')
-		player->dir = PI;
-}
-
 static int	check_neighbour(char **map, char *set, int i, int j)
 {
 	int	walls;
@@ -105,28 +92,50 @@ static void	count_p_pos(t_map *map, int i, int j, int *pp)
 	}
 }
 
+static int	process_row(char *row, int *in_map, int current_width)
+{
+	int		j;
+	char	*trimmed;
+
+	trimmed = ft_strtrim(row, " \t\v\r\n");
+	if (!trimmed)
+		return (-1);
+	j = 0;
+	while (row[j])
+	{
+		if (row[j] == '1')
+			*in_map = 1;
+		if (*in_map && (row[j] == ' ' || row[j] == '\n'))
+			break ;
+		j++;
+	}
+	if (j > current_width)
+		current_width = j;
+	free(trimmed);
+	return (current_width);
+}
+
 static void	calc_width_height(t_map *map)
 {
-	int	i;
-	int	j;
-	int	in_map;
+	int		i;
+	int		in_map;
+	char	*trimmed;
 
 	i = 0;
 	in_map = 0;
 	while (map->map[i])
 	{
-		j = 0;
-		while (map->map[i][j])
-		{
-			if (map->map[i][j] == '1')
-				in_map = 1;
-			if (in_map && map->map[i][j] == ' ')
-				break ;
-			j++;
-		}
-		if (j > map->width)
-			map->width = j;
+		trimmed = ft_strtrim(map->map[i], " \t\v\r\n");
+		map->width = process_row(map->map[i], &in_map, map->width);
+		if (map->width == -1)
+			return ;
+		if (ft_strlen(trimmed) == 0)
+			break ;
+		free(trimmed);
+		trimmed = NULL;
 		i++;
 	}
+	if (trimmed)
+		free(trimmed);
 	map->height = i;
 }

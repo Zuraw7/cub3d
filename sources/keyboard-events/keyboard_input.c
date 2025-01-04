@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:01:14 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/03 15:31:36 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:34:02 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void	move_player(t_player *player, int keycode)
 	}
 }
 
-
-static void rotate_player(t_player *player, int keycode)
+static void	rotate_player(t_player *player, int keycode)
 {
 	float	rotate_speed;
 
@@ -59,7 +58,6 @@ int	key_checker(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		close_window(data);
-	
 	if (keycode == 119 || keycode == 115 || keycode == 97 || keycode == 100)
 	{
 		move_player(data->player, keycode);

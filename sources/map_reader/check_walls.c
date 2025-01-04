@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 10:34:54 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/02 10:37:58 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 13:33:15 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	add_neighbors_to_queue(t_bfs *tmp, t_map *map, char **tmp_map);
 		a. ustawienie sprawdzonych pól na B
 	3. Sprawdzenie sąsiednich pól pod kątem ścian
 		a. Jeżeli sąsienie pole nie jest ścianą -> daje do kolejki
-		c. jeżeli aktualne pole jest na brzegu mapy (krańce mapy) lub obok jest spacja -> zwraca błąd
+		c. jeżeli aktualne pole jest na brzegu mapy (krańce mapy) lub
+			obok jest spacja -> zwraca błąd
 	4. Zwolnienie pamięci -> mapy i kolejki
 */
 int	check_walls(t_map *map)
@@ -38,14 +39,14 @@ int	check_walls(t_map *map)
 	tmp = map->queue;
 	while (tmp)
 	{
-    	if (!is_border_surrounded(tmp, map, tmp_map) || is_space(tmp, tmp_map))
+		if (!is_border_surrounded(tmp, map, tmp_map) || is_space(tmp, tmp_map))
 		{
 			free_double_arr(tmp_map);
 			clear_queue(map->queue);
 			return (1);
 		}
 		add_neighbors_to_queue(tmp, map, tmp_map);
-	    tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	free_double_arr(tmp_map);
 	clear_queue(map->queue);
