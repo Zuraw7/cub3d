@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:27:21 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/04 22:55:51 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <sys/time.h>
 # include "./minilibx/mlx.h"
 # include "./libft/libft.h"
@@ -31,6 +32,8 @@
 
 # define PX 32
 # define PI 3.14159265359
+
+# define TEX_SIZE 64
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
 # define READ_ERROR "Error: Failed to load map\n"
@@ -52,16 +55,14 @@ typedef struct s_ray		t_ray;
 typedef struct s_img		t_img;
 typedef struct s_rend_img	t_rend_img;
 
-typedef struct s_data
+
+typedef enum e_main_direction
 {
-	t_mlx		*mlx;
-	t_map		*map;
-	t_player	*player;
-	t_rend_img	*rend_img;
-	void		*window;
-	int			win_height;
-	int			win_width;
-}				t_data;
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3,
+}				t_main_direction;
 
 typedef struct s_mlx
 {
@@ -98,8 +99,10 @@ typedef struct	s_player
 	float	y; // pozycja y gracza
 	float	dir_x; // wektor kierunku x gracza
 	float	dir_y; // wektor kierunku y gracza
-	float	dir;
-	float	fov; //oba do obliczenia kąta widzenia - to do!
+	float	dir; // kąt patrzenia gracza w radianach
+	float	fov; // pole widzenia w radianach
+	float	plane_x; // wektor kierunku x płaszczyzny kamery
+	float	plane_y; // wektor kierunku y płaszczyzny kamery
 	//int		has_moved;
 	char	start_dir;
 	t_data	*data;
@@ -109,9 +112,21 @@ typedef struct s_ray
 {
 	double	x_dir; // wektor kierunku x
 	double	y_dir; // wektor kierunku y
-	double	camera_x; // x na płaszczyźnie ekranu
+	double	camera_x; // x na płaszczyźnie ekranu, camera plane
+	double  delta_x; // odległość promienia, którą pokonuje przechodząc przez kratkę w osi x
+	double  delta_y; // odległość promienia, którą pokonuje przechodząc przez kratkę w osi y
+	double	side_x; //odległość do najbliższej linii siatki x
+	double	side_y; //odległość do najbliższej linii siatki y
+	double	wall_d; // odległość do ściany
+	double	wx; //ściana x
 	int		map_x; // pozycja x na mapie
 	int		map_y; // pozycja y na mapie
+	int		step_x; // krok x
+	int		step_y; // krok y
+	int		side; //strona uderzenia ściany
+	int		height; //wysokość ściany
+	int		draw_s; //początek rysowania ściany
+	int		draw_e; //koniec rysowania ściany
 }				t_ray;
 
 typedef struct	s_img
@@ -123,6 +138,7 @@ typedef struct	s_img
 	int		endian;				// Porządek bajtów
 	int		width;				// Szerokość obrazu
 	int		height;				// Wysokość obrazu
+	void	*img;				// Wskaźnik na obraz
 	t_data	*data;
 }				t_img;
 
@@ -133,6 +149,20 @@ typedef struct s_rend_img
 	t_img	*floor;
 	t_data	*data;
 }			t_rend_img;
+
+typedef struct s_data
+{
+	t_mlx		*mlx;
+	t_map		*map;
+	t_player	*player;
+	t_rend_img	*rend_img;
+	t_ray		ray;
+	void		*window;
+	int			win_height;
+	int			win_width;
+	int			*tex_buffer[4];
+	int			**pixels;
+}				t_data;
 
 /*	FUNCTIONS	*/
 
@@ -220,11 +250,18 @@ void	input_checker(int argc, char **argv);
 
 /*	------raycasting------	*/
 // raycasting.c
-void	ray_direction(int x, t_ray *ray, t_player *player);
-
+/*void	ray_direction(t_data *data, t_ray *ray);
+void	calculate_camera_plane(t_player *player);
+bool	create_tex_buffer_from_img(t_data *data,
+		t_img *img, t_main_direction dir);
+void	free_array(void **array, int n);
+bool	create_pixel_map(t_data *data);
+void	update_pixel_map(t_data *data, t_ray *ray, int x);
+void	draw_pixel_map(t_data *data);*/
 // create_img.c
 void	img_pixel_put(t_img *img, int x, int y, int color);
 void	draw_tile_to_image(t_img *img, int x, int y, int color);
+void	init_ray(t_ray *ray, int x, t_player *player);
 
 // draw_player_map.c
 void	draw_map_to_image(t_data *data);
@@ -236,4 +273,6 @@ void	make_ceiling(t_data *data);
 void	make_floor(t_data *data);
 void	ceiling_and_floor(t_data *data);
 
+// render.c
+//void	render_raycast(t_data *data);
 #endif
