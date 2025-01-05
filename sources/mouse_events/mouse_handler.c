@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 18:17:59 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/27 18:18:00 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:53:12 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	cursor_limit(t_data *data, int x, int y)
 {
-	if (x > data->win_width - MOUSE_EDGE_LIMIT)
+	if (x > WIDTH - MOUSE_EDGE_LIMIT)
 	{
 		x = MOUSE_EDGE_LIMIT;
-		mlx_mouse_move(data->mlx, data->window, x, y);
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x, y);
 	}
 	if (x < MOUSE_EDGE_LIMIT)
 	{
-		x = data->win_width - MOUSE_EDGE_LIMIT;
-		mlx_mouse_move(data->mlx, data->window, x, y);
+		x = WIDTH - MOUSE_EDGE_LIMIT;
+		mlx_mouse_move(data->mlx->mlx_ptr, data->mlx->win_ptr, x, y);
 	}
 }
 //player_rotation.c do zrobienia, ale to potem

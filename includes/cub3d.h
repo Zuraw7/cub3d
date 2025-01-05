@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 12:03:56 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 12:51:30 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+
+# define OFFSET 0.15
 
 # define PX 32
 # define PI 3.14159265359
@@ -64,6 +66,7 @@ typedef enum e_main_direction
 	EAST = 3,
 }				t_main_direction;
 
+// Minilibx window
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -144,9 +147,12 @@ typedef struct	s_img
 
 typedef struct s_rend_img
 {
-	t_img	*minimap;
-	t_img	*ceiling;
-	t_img	*floor;
+	t_img	*minimap;			// Minimapa
+	t_img	*player_mm;			// Gracz na minimapie
+	t_img	*ceiling;			// Sufit
+	t_img	*floor;				// Podłoga
+	int		wall_px;				// Szerokość tekstury
+	void	*walls[4];			// 0 - N, 1 - E, 2 - S, 3 - W
 	t_data	*data;
 }			t_rend_img;
 
@@ -175,6 +181,9 @@ int		close_window(t_data *data);
 // keyboard_input.c
 int		key_checker(int keycode, t_data *data);
 void	register_events(t_data *data);
+
+// player_move.c
+void	move_player(t_player *player, int keycode);
 
 /*	------utils------	*/
 // utils.c
@@ -265,8 +274,8 @@ void	draw_tile_to_image(t_img *img, int x, int y, int color);
 void	init_ray(t_ray *ray, int x, t_player *player);
 
 // draw_player_map.c
-void	draw_map_to_image(t_data *data);
-void	draw_player_to_image(t_player *player, t_img *img);
+void	draw_minimap(t_data *data);
+void	draw_player(t_img *img);
 int		render_scene(t_data *data);
 
 // draw_ceiling_floor.c

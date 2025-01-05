@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:40:13 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:56:23 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	fill_minimap_background(t_img *image)
 /*
 	Funkcja umieszcza ściany oraz podłogę na minimapie
 */
-void	draw_map_to_image(t_data *data)
+void	draw_minimap(t_data *data)
 {
 	int		x;
 	int		y;
@@ -54,12 +54,12 @@ void	draw_map_to_image(t_data *data)
 			if (map->map[y][x] == '1')
 			{
 				color = 0x808080;
-				draw_tile_to_image(data->rend_img->minimap, x, y, color);
+				draw_tile_to_minimap(data->rend_img->minimap, x, y, color);
 			}
 			else if (map->map[y][x] != ' ' && map->map[y][x] != '\n')
 			{
 				color = 0xFFFFFF;
-				draw_tile_to_image(data->rend_img->minimap, x, y, color);
+				draw_tile_to_minimap(data->rend_img->minimap, x, y, color);
 			}
 		}
 	}
@@ -68,38 +68,52 @@ void	draw_map_to_image(t_data *data)
 /*
 	Funkcja umieszcza gracza na minimapie w zależności od pozycji
 */
-void	draw_player_to_image(t_player *player, t_img *img)
+void	draw_player(t_img *img)
 {
 	int		i;
 	int		j;
-	float	player_x;
-	float	player_y;
 
-	player_x = player->x * PX / 4 + (PX / (PX / 2));
-	player_y = player->y * PX / 4;
 	i = 0;
 	while (i < PX / 8)
 	{
 		j = 0;
 		while (j < PX / 8)
 		{
-			img_pixel_put(img, player_x + i, player_y + j, 0xFF0000);
+			img_pixel_put(img, i, j, 0xFF0000);
 			j++;
 		}
 		i++;
 	}
 }
 
+/*
+	1. Czyści okno
+	2. Renderuje obrazy na oknie
+		a. sufit
+		b. podłoga
+		c. minimapę
+		d. gracza na minimapie
+		e. ściany
+*/
 int	render_scene(t_data *data)
 {
 	mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
-	draw_map_to_image(data);
-	draw_player_to_image(data->player, data->rend_img->minimap);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->ceiling->img_ptr, 0, 0);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->floor->img_ptr, 0, HEIGHT / 2);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
-		data->rend_img->minimap->img_ptr, 10, 10);
+		data->rend_img->minimap->img_ptr, 5, 5);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->player_mm->img_ptr, data->player->x * PX / 4 + 5,
+		data->player->y * PX / 4 + 5);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[0], WIDTH / 2 - PX, HEIGHT / 2 - PX * 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[1], WIDTH / 2 + PX, HEIGHT / 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[2], WIDTH / 2 - PX, HEIGHT / 2 + PX * 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[3], WIDTH / 2 - PX * 2 - PX, HEIGHT / 2 - PX);
 	return (0);
 }

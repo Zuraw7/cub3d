@@ -6,12 +6,11 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 22:56:13 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 12:50:24 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
 
 int	main(int ac, char **av)
 {
@@ -29,6 +28,12 @@ int	main(int ac, char **av)
 	printf("\n");
 
 	printf("\nStarting direction: %c\n\n", data.player->start_dir);
+
+	printf("North texture:	%s\n", data.map->nesw_textures[0]);
+	printf("East texture:	%s\n", data.map->nesw_textures[1]);
+	printf("South texture:	%s\n", data.map->nesw_textures[2]);
+	printf("West texture:	%s\n", data.map->nesw_textures[3]);
+	printf("\n\n");
 
 	open_window(data.mlx);
 
