@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:08:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:34:04 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:45:31 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ void	download_textures(t_data *data)
 
 	rend_img = data->rend_img;
 	rend_img->walls[0] = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
-		data->map->nesw_textures[0], &rend_img->wall_px, &rend_img->wall_px);
+			data->map->nesw_textures[0],
+			&rend_img->wall_px, &rend_img->wall_px);
 	rend_img->walls[1] = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
-		data->map->nesw_textures[1], &rend_img->wall_px, &rend_img->wall_px);
+			data->map->nesw_textures[1],
+			&rend_img->wall_px, &rend_img->wall_px);
 	rend_img->walls[2] = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
-		data->map->nesw_textures[2], &rend_img->wall_px, &rend_img->wall_px);
+			data->map->nesw_textures[2],
+			&rend_img->wall_px, &rend_img->wall_px);
 	rend_img->walls[3] = mlx_xpm_file_to_image(data->mlx->mlx_ptr,
-		data->map->nesw_textures[3], &rend_img->wall_px, &rend_img->wall_px);
+			data->map->nesw_textures[3],
+			&rend_img->wall_px, &rend_img->wall_px);
 	if (!rend_img->walls[0] || !rend_img->walls[1]
 		|| !rend_img->walls[2] || !rend_img->walls[3])
 	{
