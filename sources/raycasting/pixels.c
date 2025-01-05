@@ -6,13 +6,14 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:49:19 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/04 22:58:52 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 12:37:30 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-/*bool	create_tex_buffer_from_img(t_data *data,
+/*tworzy bufor tekstury z obrazu,
+kopiując piksele z adresu obrazu (img->addr) do nowego bufora (pixels)*/
+bool	create_tex_buffer_from_img(t_data *data,
 		t_img *img, t_main_direction dir)
 {
 	int	*pixels;
@@ -32,7 +33,7 @@
 	data->tex_buffer[dir] = pixels;
 	return (true);
 }
-
+//kierunki główne
 static t_main_direction	get_main_direction(t_ray *ray)
 {
 	if (ray->side == 0)
@@ -50,7 +51,7 @@ static t_main_direction	get_main_direction(t_ray *ray)
 			return (NORTH);
 	}
 }
-
+//zwalnia pamięć z tablicy
 void	free_array(void **array, int n)
 {
 	int	i;
@@ -65,7 +66,7 @@ void	free_array(void **array, int n)
 				free(array[i]);
 	free(array);
 }
-
+//tworzy mapę pikseli
 bool	create_pixel_map(t_data *data)
 {
 	int	i;
@@ -82,7 +83,7 @@ bool	create_pixel_map(t_data *data)
 	}
 	return (true);
 }
-
+//aktualizuje piksele na mapie
 void	update_pixel_map(t_data *data, t_ray *ray, int x)
 {
 	t_main_direction	dir;
@@ -109,7 +110,7 @@ void	update_pixel_map(t_data *data, t_ray *ray, int x)
 		ray->draw_s++;
 	}
 }
-
+//rysuje mapę pikseli
 void	draw_pixel_map(t_data *data)
 {
 	t_img	img;
@@ -136,5 +137,5 @@ void	draw_pixel_map(t_data *data)
 		}
 	}
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr, img.img, 0, 0);
-	//mlx_destroy_image(data->mlx->mlx_ptr, img.img);
-}*/
+	mlx_destroy_image(data->mlx->mlx_ptr, img.img);
+}

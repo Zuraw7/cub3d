@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 22:55:51 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 12:03:56 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,14 +250,15 @@ void	input_checker(int argc, char **argv);
 
 /*	------raycasting------	*/
 // raycasting.c
-/*void	ray_direction(t_data *data, t_ray *ray);
+void	ray_direction(t_data *data, t_ray *ray);
 void	calculate_camera_plane(t_player *player);
 bool	create_tex_buffer_from_img(t_data *data,
 		t_img *img, t_main_direction dir);
 void	free_array(void **array, int n);
 bool	create_pixel_map(t_data *data);
 void	update_pixel_map(t_data *data, t_ray *ray, int x);
-void	draw_pixel_map(t_data *data);*/
+void	draw_pixel_map(t_data *data);
+
 // create_img.c
 void	img_pixel_put(t_img *img, int x, int y, int color);
 void	draw_tile_to_image(t_img *img, int x, int y, int color);
