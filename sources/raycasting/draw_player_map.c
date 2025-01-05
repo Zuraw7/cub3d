@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:38:41 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:41:05 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,13 @@ int	render_scene(t_data *data)
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->player_mm->img_ptr, data->player->x * PX / 4 + 5,
 		data->player->y * PX / 4 + 5);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[0], WIDTH / 2 - PX, HEIGHT / 2 - PX * 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[1], WIDTH / 2 + PX, HEIGHT / 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[2], WIDTH / 2 - PX, HEIGHT / 2 + PX * 2 - PX);
+	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
+		data->rend_img->walls[3], WIDTH / 2 - PX * 2 - PX , HEIGHT / 2 - PX);
 	return (0);
 }

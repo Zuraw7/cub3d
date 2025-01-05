@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:38:55 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:21:20 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ typedef struct s_data
 	t_map		*map;
 	t_player	*player;
 	t_rend_img	*rend_img;
-	void		*window;
-	int			win_height;
-	int			win_width;
 }				t_data;
 
+// Minilibx window
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -130,10 +128,12 @@ typedef struct	s_img
 
 typedef struct s_rend_img
 {
-	t_img	*minimap;
+	t_img	*minimap;			// Minimapa
 	t_img	*player_mm;			// Gracz na minimapie
-	t_img	*ceiling;
-	t_img	*floor;
+	t_img	*ceiling;			// Sufit
+	t_img	*floor;				// Podłoga
+	int		wall_px;				// Szerokość tekstury
+	void	*walls[4];			// 0 - N, 1 - E, 2 - S, 3 - W
 	t_data	*data;
 }			t_rend_img;
 
