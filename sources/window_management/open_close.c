@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 23:58:54 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:14:47 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:57:39 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	open_window(t_mlx *mlx)
 
 int	close_window(t_data *data)
 {
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(data->mlx->mlx_ptr, data->rend_img->walls[i]);
 	mlx_destroy_image(data->mlx->mlx_ptr, data->rend_img->minimap->img_ptr);
 	mlx_destroy_image(data->mlx->mlx_ptr, data->rend_img->player_mm->img_ptr);
 	mlx_destroy_image(data->mlx->mlx_ptr, data->rend_img->ceiling->img_ptr);

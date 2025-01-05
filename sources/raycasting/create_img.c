@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:08:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:45:31 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:56:07 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ void	download_textures(t_data *data);
 
 /*
 	Funkcja tworzy miejsce na obrazy oraz wpisuje do nich treść obrazu
+	1. Inicjalizacja struktury na obrazy
+	2. Ustawienie wall_px na 64
+	3. Umieszczenie pixeli na obrazach
+		a. draw_minimap
+		b. draw_player
+		c. ceiling_and_floor
+	4. Pobranie tekstur z plików
+		a. download_textures
 */
 void	render_imgs(t_data *data)
 {
@@ -40,6 +48,9 @@ void	render_imgs(t_data *data)
 	download_textures(data);
 }
 
+/*
+	Pobiera tekstury z plików
+*/
 void	download_textures(t_data *data)
 {
 	t_rend_img	*rend_img;
@@ -81,7 +92,7 @@ void	img_pixel_put(t_img *img, int x, int y, int color)
 /*
 	Umieszcza kwadraty na minimapie
 */
-void	draw_tile_to_image(t_img *img, int x, int y, int color)
+void	draw_tile_to_minimap(t_img *img, int x, int y, int color)
 {
 	int	i;
 	int	j;

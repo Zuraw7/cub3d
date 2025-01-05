@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:21:20 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:56:34 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ void	ray_direction(int x, t_ray *ray, t_player *player);
 
 // create_img.c
 void	img_pixel_put(t_img *img, int x, int y, int color);
-void	draw_tile_to_image(t_img *img, int x, int y, int color);
+void	draw_tile_to_minimap(t_img *img, int x, int y, int color);
 void	render_imgs(t_data *data);
 
 // draw_player_map.c

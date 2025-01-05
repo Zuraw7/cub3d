@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:45:56 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:56:23 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	draw_minimap(t_data *data)
 			if (map->map[y][x] == '1')
 			{
 				color = 0x808080;
-				draw_tile_to_image(data->rend_img->minimap, x, y, color);
+				draw_tile_to_minimap(data->rend_img->minimap, x, y, color);
 			}
 			else if (map->map[y][x] != ' ' && map->map[y][x] != '\n')
 			{
 				color = 0xFFFFFF;
-				draw_tile_to_image(data->rend_img->minimap, x, y, color);
+				draw_tile_to_minimap(data->rend_img->minimap, x, y, color);
 			}
 		}
 	}
@@ -93,6 +93,7 @@ void	draw_player(t_img *img)
 		b. podłoga
 		c. minimapę
 		d. gracza na minimapie
+		e. ściany
 */
 int	render_scene(t_data *data)
 {

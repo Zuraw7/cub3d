@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:26:13 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 11:58:16 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	main(int ac, char **av)
 
 	printf("\nStarting direction: %c\n\n", data.player->start_dir);
 
-	printf("North texture: %s\n", data.map->nesw_textures[0]);
-	printf("East texture: %s\n", data.map->nesw_textures[1]);
-	printf("South texture: %s\n", data.map->nesw_textures[2]);
-	printf("West texture: %s\n", data.map->nesw_textures[3]);
+	printf("North texture:	%s\n", data.map->nesw_textures[0]);
+	printf("East texture:	%s\n", data.map->nesw_textures[1]);
+	printf("South texture:	%s\n", data.map->nesw_textures[2]);
+	printf("West texture:	%s\n", data.map->nesw_textures[3]);
 	printf("\n\n");
 
 	open_window(data.mlx);
