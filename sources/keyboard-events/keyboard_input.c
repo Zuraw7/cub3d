@@ -6,38 +6,11 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:01:14 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:34:02 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 00:49:17 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-static void	move_player(t_player *player, int keycode)
-{
-	float	move_speed;
-
-	move_speed = 0.2;
-	if (keycode == 119)
-	{
-		player->x += cos(player->dir) * move_speed;
-		player->y -= sin(player->dir) * move_speed;
-	}
-	else if (keycode == 115)
-	{
-		player->x -= cos(player->dir) * move_speed;
-		player->y += sin(player->dir) * move_speed;
-	}
-	else if (keycode == 97)
-	{
-		player->x += cos(player->dir + PI / 2) * move_speed;
-		player->y -= sin(player->dir + PI / 2) * move_speed;
-	}
-	else if (keycode == 100)
-	{
-		player->x -= cos(player->dir + PI / 2) * move_speed;
-		player->y += sin(player->dir + PI / 2) * move_speed;
-	}
-}
 
 static void	rotate_player(t_player *player, int keycode)
 {

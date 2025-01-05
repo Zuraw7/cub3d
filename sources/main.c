@@ -6,12 +6,11 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:29:59 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:33:27 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
 
 int	main(int ac, char **av)
 {
@@ -32,10 +31,9 @@ int	main(int ac, char **av)
 
 	open_window(data.mlx);
 
-	// inicjalizacja i renderowanie img -> podłogi i sufitu raz, one sie nie zmieniaja
 	// minimapa jest zainicjalizowana tutaj, a w hook jest renderowana za kazdym razem troche inaczej
-	data.rend_img->minimap = init_img(&data, data.mlx->mlx_ptr, data.map->width * PX / 4, data.map->height * PX / 4);
-	ceiling_and_floor(&data);
+	render_imgs(&data);
+
 	mlx_loop_hook(data.mlx->mlx_ptr, render_scene, &data);
 
 	register_events(&data);

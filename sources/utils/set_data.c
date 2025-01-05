@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:05:33 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 12:13:00 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:04:57 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_data(t_data *data)
 	// rend_img
 	rend_img->data = data;
 	rend_img->minimap = NULL;
+	rend_img->player_mm = NULL;
 	rend_img->ceiling = NULL;
 	rend_img->floor = NULL;
 	data->rend_img = rend_img;

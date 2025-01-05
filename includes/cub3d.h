@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:27:21 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:33:52 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+
+# define OFFSET 0.15
 
 # define PX 32
 # define PI 3.14159265359
@@ -129,6 +131,7 @@ typedef struct	s_img
 typedef struct s_rend_img
 {
 	t_img	*minimap;
+	t_img	*player_mm;			// Gracz na minimapie
 	t_img	*ceiling;
 	t_img	*floor;
 	t_data	*data;
@@ -145,6 +148,9 @@ int		close_window(t_data *data);
 // keyboard_input.c
 int		key_checker(int keycode, t_data *data);
 void	register_events(t_data *data);
+
+// player_move.c
+void	move_player(t_player *player, int keycode);
 
 /*	------utils------	*/
 // utils.c
@@ -225,10 +231,11 @@ void	ray_direction(int x, t_ray *ray, t_player *player);
 // create_img.c
 void	img_pixel_put(t_img *img, int x, int y, int color);
 void	draw_tile_to_image(t_img *img, int x, int y, int color);
+void	render_imgs(t_data *data);
 
 // draw_player_map.c
-void	draw_map_to_image(t_data *data);
-void	draw_player_to_image(t_player *player, t_img *img);
+void	draw_minimap(t_data *data);
+void	draw_player(t_player *player, t_img *img);
 int		render_scene(t_data *data);
 
 // draw_ceiling_floor.c

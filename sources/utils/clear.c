@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 08:02:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:31:30 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:15:05 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	exit_clear(t_data *data)
 		free(data->player);
 	if (data->rend_img)
 	{
+		free(data->rend_img->minimap);
+		free(data->rend_img->player_mm);
 		free(data->rend_img->ceiling);
 		free(data->rend_img->floor);
-		free(data->rend_img->minimap);
 		free(data->rend_img);
 	}
 	if (data->mlx)

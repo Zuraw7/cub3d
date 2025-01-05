@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 12:18:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:38:42 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:31:00 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ void	make_ceiling(t_data *data)
 	map = data->map;
 	rend_img = data->rend_img;
 	color = map->ceiling_color;
-	rend_img->ceiling = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
-	if (!rend_img->ceiling)
-	{
-		printf("Error allocating ceiling\n");
-		exit (1);
-	}
 	i = -1;
 	while (++i < WIDTH)
 	{
@@ -54,12 +48,6 @@ void	make_floor(t_data *data)
 	map = data->map;
 	rend_img = data->rend_img;
 	color = map->floor_color;
-	rend_img->floor = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
-	if (!rend_img->ceiling)
-	{
-		printf("Error allocating ceiling\n");
-		exit (1);
-	}
 	i = -1;
 	while (++i < WIDTH)
 	{
