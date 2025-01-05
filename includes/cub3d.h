@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:33:52 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:38:55 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void	render_imgs(t_data *data);
 
 // draw_player_map.c
 void	draw_minimap(t_data *data);
-void	draw_player(t_player *player, t_img *img);
+void	draw_player(t_img *img);
 int		render_scene(t_data *data);
 
 // draw_ceiling_floor.c

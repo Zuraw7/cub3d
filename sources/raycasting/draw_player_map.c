@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:35:16 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:38:41 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ void	draw_minimap(t_data *data)
 /*
 	Funkcja umieszcza gracza na minimapie w zależności od pozycji
 */
-void	draw_player(t_player *player, t_img *img)
+void	draw_player(t_img *img)
 {
 	int		i;
 	int		j;
 
-
-	(void)player;
 	i = 0;
 	while (i < PX / 8)
 	{
@@ -106,6 +104,7 @@ int	render_scene(t_data *data)
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->minimap->img_ptr, 5, 5);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
-		data->rend_img->player_mm->img_ptr, data->player->x * PX / 4 + 5, data->player->y * PX / 4 + 5);
+		data->rend_img->player_mm->img_ptr, data->player->x * PX / 4 + 5,
+		data->player->y * PX / 4 + 5);
 	return (0);
 }

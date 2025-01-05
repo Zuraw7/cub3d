@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:08:28 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:33:21 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 01:41:13 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,22 @@
 */
 void	render_imgs(t_data *data)
 {
-	data->rend_img->minimap = init_img(data, data->mlx->mlx_ptr,
-		data->map->width * PX / 4, data->map->height * PX / 4);
-	data->rend_img->player_mm = init_img(data, data->mlx->mlx_ptr, PX / 8, PX / 8);
-	data->rend_img->floor = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
-	data->rend_img->ceiling = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
-	if (!data->rend_img->minimap || !data->rend_img->player_mm ||
-		!data->rend_img->floor || !data->rend_img->ceiling)
+	t_rend_img	*rend_img;
+
+	rend_img = data->rend_img;
+	rend_img->minimap = init_img(data, data->mlx->mlx_ptr,
+			data->map->width * PX / 4, data->map->height * PX / 4);
+	rend_img->player_mm = init_img(data, data->mlx->mlx_ptr, PX / 8, PX / 8);
+	rend_img->floor = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
+	rend_img->ceiling = init_img(data, data->mlx->mlx_ptr, WIDTH, HEIGHT / 2);
+	if (!data->rend_img->minimap || !data->rend_img->player_mm
+		|| !data->rend_img->floor || !data->rend_img->ceiling)
 	{
 		printf("Error allocating minimap\n");
 		exit(1);
 	}
 	draw_minimap(data);
-	draw_player(data->player, data->rend_img->player_mm);
+	draw_player(data->rend_img->player_mm);
 	ceiling_and_floor(data);
 }
 
