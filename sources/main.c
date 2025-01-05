@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 23:25:46 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/05 23:28:55 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	main(int ac, char **av)
 
 	open_window(data.mlx);
 
-	// inicjalizacja i renderowanie img -> podłogi i sufitu raz, one sie nie zmieniaja
-	// minimapa jest zainicjalizowana tutaj, a w hook jest renderowana za kazdym razem troche inaczej
 	render_imgs(&data);
 	render_raycast(&data);
 	mlx_loop_hook(data.mlx->mlx_ptr, render_scene, &data);
