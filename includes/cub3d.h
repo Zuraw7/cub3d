@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 13:00:18 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 23:25:37 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,8 +269,8 @@ void	update_pixel_map(t_data *data, t_ray *ray, int x);
 void	draw_pixel_map(t_data *data);
 
 // create_img.c
+void	render_imgs(t_data *data);
 void	img_pixel_put(t_img *img, int x, int y, int color);
-void	draw_tile_to_image(t_img *img, int x, int y, int color);
 void	init_ray(t_ray *ray, int x, t_player *player);
 void	draw_tile_to_minimap(t_img *img, int x, int y, int color);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 12:55:00 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 23:25:46 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	main(int ac, char **av)
 
 	// inicjalizacja i renderowanie img -> podłogi i sufitu raz, one sie nie zmieniaja
 	// minimapa jest zainicjalizowana tutaj, a w hook jest renderowana za kazdym razem troche inaczej
-	data.rend_img->minimap = init_img(&data, data.mlx->mlx_ptr, data.map->width * PX / 4, data.map->height * PX / 4);
-	ceiling_and_floor(&data);
+	render_imgs(&data);
 	render_raycast(&data);
 	mlx_loop_hook(data.mlx->mlx_ptr, render_scene, &data);
 	register_events(&data);
