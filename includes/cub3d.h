@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 12:51:30 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 12:54:47 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,5 +284,5 @@ void	make_floor(t_data *data);
 void	ceiling_and_floor(t_data *data);
 
 // render.c
-//void	render_raycast(t_data *data);
+void	render_raycast(t_data *data);
 #endif
