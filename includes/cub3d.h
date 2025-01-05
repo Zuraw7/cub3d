@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 12:54:47 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 13:00:18 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ void	draw_pixel_map(t_data *data);
 void	img_pixel_put(t_img *img, int x, int y, int color);
 void	draw_tile_to_image(t_img *img, int x, int y, int color);
 void	init_ray(t_ray *ray, int x, t_player *player);
+void	draw_tile_to_minimap(t_img *img, int x, int y, int color);
 
 // draw_player_map.c
 void	draw_minimap(t_data *data);
