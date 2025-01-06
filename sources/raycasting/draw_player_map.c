@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/06 09:33:51 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/06 09:56:51 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,21 @@ void	draw_player(t_img *img)
 	}
 }
 
+static void	lock_fps(t_data *data)
+{
+	long	current_time;
+	long	time_diff;
+
+	current_time = get_time_in_microseconds();
+	time_diff = current_time - data->mlx->last_time;
+	if (time_diff < FRAME_TIME)
+	{
+		usleep(FRAME_TIME - time_diff);
+		current_time = get_time_in_microseconds();
+	}
+	data->mlx->last_time = current_time;
+}
+
 /*
 	1. Czyści okno
 	2. Renderuje obrazy na oknie
@@ -97,19 +112,7 @@ void	draw_player(t_img *img)
 */
 int	render_scene(t_data *data)
 {
-	long		current_time;
-	long		time_diff;
-
-	current_time = get_time_in_microseconds();
-	time_diff = current_time - data->mlx->last_time;
-	if (time_diff < FRAME_TIME)
-	{
-		usleep(FRAME_TIME - time_diff);
-		current_time = get_time_in_microseconds();
-	}
-	data->mlx->last_time = current_time;
-	current_time = get_time_in_microseconds();
-
+	lock_fps(data);
 	mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->ceiling->img_ptr, 0, 0);
