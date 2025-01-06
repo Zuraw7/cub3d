@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/06 09:25:49 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/06 09:33:44 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@
 
 # define WIDTH 800
 # define HEIGHT 600
-
 # define OFFSET 0.15
-
+# define TARGET_FPS 144
+# define FRAME_TIME 1000000 / TARGET_FPS
 # define PX 32
 # define PI 3.14159265359
-
 # define TEX_SIZE 64
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
@@ -193,6 +192,9 @@ int		ft_isspace(char c);
 int		is_line_empty(char *line);
 char	*make_set(char *list);
 void	set_player_dir(t_player *player);
+
+// utils2.c
+long	get_time_in_microseconds(void);
 
 // clear.c
 void	exit_clear(t_data *data);

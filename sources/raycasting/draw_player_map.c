@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/06 09:28:01 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/06 09:33:51 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,6 @@ void	draw_player(t_img *img)
 		}
 		i++;
 	}
-}
-
-#define TARGET_FPS 144
-#define FRAME_TIME 1000000 / TARGET_FPS
-
-long	get_time_in_microseconds(void)
-{
-	struct timeval	time;
-	long			time_in_microseconds;
-
-	gettimeofday(&time, NULL);
-	time_in_microseconds = (time.tv_sec * 1000000) + time.tv_usec;
-	return (time_in_microseconds);
 }
 
 /*
