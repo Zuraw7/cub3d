@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 11:56:23 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/06 09:28:01 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,19 @@ void	draw_player(t_img *img)
 	}
 }
 
+#define TARGET_FPS 144
+#define FRAME_TIME 1000000 / TARGET_FPS
+
+long	get_time_in_microseconds(void)
+{
+	struct timeval	time;
+	long			time_in_microseconds;
+
+	gettimeofday(&time, NULL);
+	time_in_microseconds = (time.tv_sec * 1000000) + time.tv_usec;
+	return (time_in_microseconds);
+}
+
 /*
 	1. Czyści okno
 	2. Renderuje obrazy na oknie
@@ -97,6 +110,19 @@ void	draw_player(t_img *img)
 */
 int	render_scene(t_data *data)
 {
+	long		current_time;
+	long		time_diff;
+
+	current_time = get_time_in_microseconds();
+	time_diff = current_time - data->mlx->last_time;
+	if (time_diff < FRAME_TIME)
+	{
+		usleep(FRAME_TIME - time_diff);
+		current_time = get_time_in_microseconds();
+	}
+	data->mlx->last_time = current_time;
+	current_time = get_time_in_microseconds();
+
 	mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->ceiling->img_ptr, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:05:33 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 10:43:19 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/06 09:25:46 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static	t_mlx	*set_mlx(t_data *data)
 		printf("Error: mlx allocation failed\n");
 		exit(1);
 	}
+	mlx->last_time = 0;
 	mlx->mlx_ptr = NULL;
 	mlx->win_ptr = NULL;
 	mlx->data = data;
