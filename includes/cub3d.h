@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/06 09:33:44 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/08 23:23:25 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define HEIGHT 600
 # define OFFSET 0.15
 # define TARGET_FPS 144
-# define FRAME_TIME 1000000 / TARGET_FPS
+# define FRAME_TIME 6944.444444444
 # define PX 32
 # define PI 3.14159265359
 # define TEX_SIZE 64
@@ -42,6 +42,8 @@
 # define VAL_ERROR "Error: Invalid map\n"
 # define TEXTURES_ERROR "Error: Invalid textures\n"
 # define COLORS_ERROR "Error: Invalid colors\n"
+# define INFO_ERROR "File should contain NO, EA, SO, WE, C, F \
+and map structure only\n"
 
 # define MOUSE_EDGE_LIMIT 30
 
@@ -55,7 +57,6 @@ typedef struct s_player		t_player;
 typedef struct s_ray		t_ray;
 typedef struct s_img		t_img;
 typedef struct s_rend_img	t_rend_img;
-
 
 typedef enum e_main_direction
 {
@@ -96,7 +97,7 @@ typedef struct s_map
 	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	float	x; // pozycja x gracza
 	float	y; // pozycja y gracza
@@ -132,7 +133,7 @@ typedef struct s_ray
 	int		draw_e; //koniec rysowania ściany
 }				t_ray;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img_ptr;			// Wskaźnik na obraz
 	char	*addr;				// Dane obrazu
@@ -265,7 +266,7 @@ void	input_checker(int argc, char **argv);
 void	ray_direction(t_data *data, t_ray *ray);
 void	calculate_camera_plane(t_player *player);
 bool	create_tex_buffer_from_img(t_data *data,
-		t_img *img, t_main_direction dir);
+			t_img *img, t_main_direction dir);
 void	free_array(void **array, int n);
 bool	create_pixel_map(t_data *data);
 void	update_pixel_map(t_data *data, t_ray *ray, int x);
