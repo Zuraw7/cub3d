@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/08 23:23:25 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/08 23:52:52 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,12 @@ int		copy_map(t_map *map);
 
 // valid_map_structure.c
 int		valid_map_structure(t_map *map);
+
+// valid_map_structure_utils.c
+int		check_neighbour(char **map, char *set, int i, int j);
+void	count_p_pos(t_map *map, int i, int j, int *pp);
+void	calc_width_height(t_map *map);
+
 
 // check_walls.c
 int		check_walls(t_map *map);
