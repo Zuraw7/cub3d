@@ -6,11 +6,18 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 23:28:55 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/10 12:52:59 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	game_loop(t_data *data)
+{
+	handle_movement(data->player, &data->keys);
+	render_scene(data);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -39,8 +46,8 @@ int	main(int ac, char **av)
 
 	render_imgs(&data);
 	render_raycast(&data);
-	mlx_loop_hook(data.mlx->mlx_ptr, render_scene, &data);
 	register_events(&data);
+	mlx_loop_hook(data.mlx->mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx->mlx_ptr);
 	return (0);
 }

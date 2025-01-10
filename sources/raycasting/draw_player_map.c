@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:15:00 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/06 09:56:51 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/10 12:49:39 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	lock_fps(t_data *data)
 		d. gracza na minimapie
 		e. ściany
 */
-int	render_scene(t_data *data)
+void	render_scene(t_data *data)
 {
 	lock_fps(data);
 	mlx_clear_window(data->mlx->mlx_ptr, data->mlx->win_ptr);
@@ -131,5 +131,4 @@ int	render_scene(t_data *data)
 		data->rend_img->walls[2], WIDTH / 2 - PX, HEIGHT / 2 + PX * 2 - PX);
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr,
 		data->rend_img->walls[3], WIDTH / 2 - PX * 2 - PX, HEIGHT / 2 - PX);
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/08 23:52:52 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/10 12:56:16 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_player		t_player;
 typedef struct s_ray		t_ray;
 typedef struct s_img		t_img;
 typedef struct s_rend_img	t_rend_img;
+typedef struct s_keys		t_keys;
 
 typedef enum e_main_direction
 {
@@ -112,6 +113,16 @@ typedef struct s_player
 	t_data	*data;
 }				t_player;
 
+typedef struct s_keys
+{
+	bool w;
+	bool a;
+	bool s;
+	bool d;
+	bool left;
+	bool right;
+}	t_keys;
+
 typedef struct s_ray
 {
 	double	x_dir; // wektor kierunku x
@@ -164,6 +175,7 @@ typedef struct s_data
 	t_player	*player;
 	t_rend_img	*rend_img;
 	t_ray		ray;
+	t_keys		keys;
 	void		*window;
 	int			win_height;
 	int			win_width;
@@ -180,11 +192,10 @@ int		close_window(t_data *data);
 
 /*	keyboard-events	*/
 // keyboard_input.c
-int		key_checker(int keycode, t_data *data);
 void	register_events(t_data *data);
 
 // player_move.c
-void	move_player(t_player *player, int keycode);
+void	handle_movement(t_player *player, t_keys *keys);
 
 /*	------utils------	*/
 // utils.c
@@ -287,7 +298,7 @@ void	draw_tile_to_minimap(t_img *img, int x, int y, int color);
 // draw_player_map.c
 void	draw_minimap(t_data *data);
 void	draw_player(t_img *img);
-int		render_scene(t_data *data);
+void	render_scene(t_data *data);
 
 // draw_ceiling_floor.c
 void	make_ceiling(t_data *data);
