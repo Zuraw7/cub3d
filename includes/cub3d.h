@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 17:00:51 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/11 10:23:10 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@
 
 # define WIDTH 800
 # define HEIGHT 600
-
 # define OFFSET 0.15
-
+# define TARGET_FPS 144
+# define FRAME_TIME 6944.444444444
 # define PX 32
 # define PI 3.14159265359
-
 # define TEX_SIZE 64
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
@@ -43,6 +42,8 @@
 # define VAL_ERROR "Error: Invalid map\n"
 # define TEXTURES_ERROR "Error: Invalid textures\n"
 # define COLORS_ERROR "Error: Invalid colors\n"
+# define INFO_ERROR "File should contain NO, EA, SO, WE, C, F \
+and map structure only\n"
 
 # define MOUSE_EDGE_LIMIT 30
 
@@ -56,7 +57,7 @@ typedef struct s_player		t_player;
 typedef struct s_ray		t_ray;
 typedef struct s_img		t_img;
 typedef struct s_rend_img	t_rend_img;
-
+typedef struct s_keys		t_keys;
 
 typedef enum e_main_direction
 {
@@ -71,6 +72,7 @@ typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	long	last_time;
 	t_data	*data;
 }				t_mlx;
 
@@ -96,7 +98,7 @@ typedef struct s_map
 	t_bfs	*queue;				// kolejka do algorytmu BFS
 }				t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	float	x; // pozycja x gracza
 	float	y; // pozycja y gracza
@@ -110,6 +112,16 @@ typedef struct	s_player
 	char	start_dir;
 	t_data	*data;
 }				t_player;
+
+typedef struct s_keys
+{
+	bool w;
+	bool a;
+	bool s;
+	bool d;
+	bool left;
+	bool right;
+}	t_keys;
 
 typedef struct s_ray
 {
@@ -132,7 +144,7 @@ typedef struct s_ray
 	int		draw_e; //koniec rysowania ściany
 }				t_ray;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img_ptr;			// Wskaźnik na obraz
 	char	*addr;				// Dane obrazu
@@ -163,6 +175,7 @@ typedef struct s_data
 	t_player	*player;
 	t_rend_img	*rend_img;
 	t_ray		ray;
+	t_keys		keys;
 	void		*window;
 	int			win_height;
 	int			win_width;
@@ -179,11 +192,10 @@ int		close_window(t_data *data);
 
 /*	keyboard-events	*/
 // keyboard_input.c
-int		key_checker(int keycode, t_data *data);
 void	register_events(t_data *data);
 
 // player_move.c
-void	move_player(t_player *player, int keycode);
+void	handle_movement(t_player *player, t_keys *keys);
 
 /*	------utils------	*/
 // utils.c
@@ -192,6 +204,9 @@ int		ft_isspace(char c);
 int		is_line_empty(char *line);
 char	*make_set(char *list);
 void	set_player_dir(t_player *player);
+
+// utils2.c
+long	get_time_in_microseconds(void);
 
 // clear.c
 void	exit_clear(t_data *data);
@@ -251,6 +266,12 @@ int		copy_map(t_map *map);
 // valid_map_structure.c
 int		valid_map_structure(t_map *map);
 
+// valid_map_structure_utils.c
+int		check_neighbour(char **map, char *set, int i, int j);
+void	count_p_pos(t_map *map, int i, int j, int *pp);
+void	calc_width_height(t_map *map);
+
+
 // check_walls.c
 int		check_walls(t_map *map);
 
@@ -261,23 +282,23 @@ void	input_checker(int argc, char **argv);
 // raycasting.c
 void	ray_direction(t_data *data, t_ray *ray);
 void	calculate_camera_plane(t_player *player);
-/*bool	create_tex_buffer_from_img(t_data *data,
-		t_img *img, t_main_direction dir);*/
+bool	create_tex_buffer_from_img(t_data *data,
+			t_img *img, t_main_direction dir);
 void	free_array(void **array, int n);
 bool	create_pixel_map(t_data *data);
 void	update_pixel_map(t_data *data, t_ray *ray, int x);
 void	draw_pixel_map(t_data *data);
 
 // create_img.c
+void	render_imgs(t_data *data);
 void	img_pixel_put(t_img *img, int x, int y, int color);
-void	draw_tile_to_image(t_img *img, int x, int y, int color);
 void	init_ray(t_ray *ray, int x, t_player *player);
 void	draw_tile_to_minimap(t_img *img, int x, int y, int color);
 
 // draw_player_map.c
 void	draw_minimap(t_data *data);
 void	draw_player(t_img *img);
-int		render_scene(t_data *data);
+void	render_scene(t_data *data);
 
 // draw_ceiling_floor.c
 void	make_ceiling(t_data *data);

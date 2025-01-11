@@ -6,136 +6,105 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/04 13:25:50 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/08 23:57:58 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	check_neighbour(char **map, char *set, int i, int j);
-static void	count_p_pos(t_map *map, int i, int j, int *pp);
-static void	calc_width_height(t_map *map);
+static int	validate_set(char **map, char *set);
+static int	validate_structure(t_map *map, char *set, int *p_pos);
+static int	validate_position_count(int p_pos);
 
 /*
 	1. Stworzenie setu {'0', '1', 'N', 'E', 'S', 'W'}
 	2. Sprawdzenie czy mapa składa się tylko z tego setu
-	3. Sprawdzenie czy nie ma pustych luk w mapie
+	3. Sprawdzenie czy mapa nie ma innego elementu niż 0, 1, N, E, S, W, ' '
+	4. Sprawdzenie czy nie ma pustych luk w mapie
 		111111
 		100001
 		10 001
 		100001
 		111111
 		Powyższa mapa jest nieakceptowana
-	4. Sprawdzenie czy jest tylko jedna pozycja startowa
+	5. Sprawdzenie czy jest tylko jedna pozycja startowa
 */
 int	valid_map_structure(t_map *map)
 {
 	char	*set;
-	int		i;
-	int		j;
 	int		p_pos;
 
 	set = make_set("01NESW");
 	if (!set)
 		return (1);
-	i = -1;
 	p_pos = 0;
-	while (map->map[++i])
-	{
-		j = -1;
-		while (map->map[i][++j])
-		{
-			if (!ft_strchr(set, map->map[i][j]))
-				if (check_neighbour(map->map, set, i, j) == 4)
-					return (free(set), 1);
-			count_p_pos(map, i, j, &p_pos);
-		}
-	}
-	if (p_pos != 1)
+	if (validate_set(map->map, set)
+		|| validate_structure(map, set, &p_pos)
+		|| validate_position_count(p_pos))
 		return (free(set), 1);
 	calc_width_height(map);
 	return (free(set), 0);
 }
 
-static int	check_neighbour(char **map, char *set, int i, int j)
+static int	validate_set(char **map, char *set)
 {
-	int	walls;
-
-	walls = 0;
-	if (j > 0 && ft_strchr(set, map[i][j - 1]))
-		walls++;
-	if (j + 1 < (int)ft_strlen(map[i])
-		&& ft_strchr(set, map[i][j + 1]))
-		walls++;
-	if (i > 0 && j < (int)ft_strlen(map[i - 1])
-		&& ft_strchr(set, map[i - 1][j]))
-		walls++;
-	if (map[i + 1] && j < (int)ft_strlen(map[i + 1])
-		&& ft_strchr(set, map[i + 1][j]))
-		walls++;
-	return (walls);
-}
-
-static void	count_p_pos(t_map *map, int i, int j, int *pp)
-{
-	if (map->map[i][j] == 'N' || map->map[i][j] == 'E'
-			|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
-	{
-		(*pp)++;
-		if (*pp == 1)
-		{
-			map->data->player->start_dir = map->map[i][j];
-			map->data->player->x = j;
-			map->data->player->y = i;
-			set_player_dir(map->data->player);
-		}
-	}
-}
-
-static int	process_row(char *row, int *in_map, int current_width)
-{
-	int		j;
-	char	*trimmed;
-
-	trimmed = ft_strtrim(row, " \t\v\r\n");
-	if (!trimmed)
-		return (-1);
-	j = 0;
-	while (row[j])
-	{
-		if (row[j] == '1')
-			*in_map = 1;
-		if (*in_map && (row[j] == ' ' || row[j] == '\n'))
-			break ;
-		j++;
-	}
-	if (j > current_width)
-		current_width = j;
-	free(trimmed);
-	return (current_width);
-}
-
-static void	calc_width_height(t_map *map)
-{
-	int		i;
-	int		in_map;
-	char	*trimmed;
+	int	i;
+	int	j;
 
 	i = 0;
-	in_map = 0;
-	while (map->map[i])
+	while (map[i])
 	{
-		trimmed = ft_strtrim(map->map[i], " \t\v\r\n");
-		map->width = process_row(map->map[i], &in_map, map->width);
-		if (map->width == -1)
-			return ;
-		if (ft_strlen(trimmed) == 0)
-			break ;
-		free(trimmed);
-		trimmed = NULL;
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_strchr(set, map[i][j]) && map[i][j] != ' ' &&
+				map[i][j] != '\n')
+			{
+				printf("map[%d][%d] = '%c'\n", i, j, map[i][j]);
+				return (1);
+			}
+			j++;
+		}
 		i++;
 	}
-	if (trimmed)
-		free(trimmed);
-	map->height = i;
+	return (0);
+}
+
+/*
+	Sprawdza czy dany element mapy zawiera się w SET
+	Jeżeli nie to sprawdza czy wsztsct sąsiedzi są w SET
+		- jeśli są to oznacza że jest to niechciany element mapy
+		- jeżeli nie to oznacza że jest to poza mapą
+	Ma to na celu zabezpieczenie się przed lukami w mapie poza granicami
+*/
+static int	validate_structure(t_map *map, char *set, int *p_pos)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map->map[i])
+	{
+		j = 0;
+		while (map->map[i][j])
+		{
+			if (!ft_strchr(set, map->map[i][j]) &&
+				check_neighbour(map->map, set, i, j) == 4)
+				return (1);
+			count_p_pos(map, i, j, p_pos);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+static int	validate_position_count(int p_pos)
+{
+	if (p_pos != 1)
+	{
+		printf("Error: There is more then 1 player position\n");
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:07 by zuraw             #+#    #+#             */
-/*   Updated: 2024/12/31 15:34:44 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/08 23:20:04 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	get_texture(t_map *map, char *line, int *count);
 static void	get_color(t_map *map, char *line, int *count);
+static int	wrong_info(t_map *map);
 
 /*
 	1. Alokuje miejsce dla NO, EA, SO, WE oraz C, F
@@ -37,15 +38,14 @@ int	validate_map_config(t_map *map)
 	map->hold_cf_color = alloc_color();
 	if (!map->nesw_textures || !map->hold_cf_color)
 		return (1);
-	i = 0;
+	i = -1;
 	count = 0;
-	while (map->file[i])
+	while (map->file[++i])
 	{
 		if (check_is_map(map->file[i]))
 			break ;
 		get_texture(map, map->file[i], &count);
 		get_color(map, map->file[i], &count);
-		i++;
 	}
 	if (count != 6)
 		return (1);
@@ -53,6 +53,8 @@ int	validate_map_config(t_map *map)
 		return (printf("%s", TEXTURES_ERROR), 1);
 	if (check_colors(map))
 		return (printf("%s", COLORS_ERROR), 1);
+	if (wrong_info(map))
+		return (printf("%s", INFO_ERROR), 1);
 	return (0);
 }
 
@@ -104,4 +106,46 @@ static void	get_color(t_map *map, char *line, int *count)
 		if (map->hold_cf_color[1] == NULL)
 			map->hold_cf_color[1] = ft_strdup(line + 1);
 	}
+}
+
+// Sprawdza czy linia zaczyna się od kierunków jeżeli tak zwraca 1
+static int	check_directions(char *trimmed)
+{
+	if (ft_strncmp(trimmed, "NO", 2) == 0)
+		return (1);
+	else if (ft_strncmp(trimmed, "EA", 2) == 0)
+		return (1);
+	else if (ft_strncmp(trimmed, "SO", 2) == 0)
+		return (1);
+	else if (ft_strncmp(trimmed, "WE", 2) == 0)
+		return (1);
+	return (0);
+}
+
+// Jeżeli linia zawiera poprawną informację zwraca 0, jeżeli nie to 1
+static int	wrong_info(t_map *map)
+{
+	char	*trimmed;
+	int		i;
+
+	i = 0;
+	while (map->file[i])
+	{
+		trimmed = ft_strtrim(map->file[i], " \t\v\f\r\n");
+		if (trimmed[0] == '1' || trimmed[0] == '0')
+			return (free(trimmed), 0);
+		if (check_directions(trimmed))
+			;
+		else if (ft_strncmp(trimmed, "C", 1) == 0)
+			;
+		else if (ft_strncmp(trimmed, "F", 1) == 0)
+			;
+		else if (is_line_empty(map->file[i]))
+			;
+		else
+			return (free(trimmed), 1);
+		free(trimmed);
+		i++;
+	}
+	return (1);
 }

@@ -6,17 +6,50 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:49:04 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/05 01:26:05 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/10 12:55:59 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+static void	rotate_player(t_player *player, int keycode);
+static void	move_player(t_player *player, int keycode);
 static int		rnd(float num);
 static float	new_xy(t_player *player, float dir_x,
 					float dir_y, float *new_y);
 
-void	move_player(t_player *player, int keycode)
+void	handle_movement(t_player *player, t_keys *keys)
+{
+	if (keys->w)
+		move_player(player, 119);
+	if (keys->s)
+		move_player(player, 115);
+	if (keys->a)
+		move_player(player, 97);
+	if (keys->d)
+		move_player(player, 100);
+	if (keys->left)
+		rotate_player(player, 65361);
+	if (keys->right)
+		rotate_player(player, 65363);
+}
+
+static void	rotate_player(t_player *player, int keycode)
+{
+	float	rotate_speed;
+
+	rotate_speed = 0.03;
+	if (keycode == 65361)
+		player->dir += rotate_speed;
+	else if (keycode == 65363)
+		player->dir -= rotate_speed;
+	if (player->dir < 0)
+		player->dir += 2 * PI;
+	if (player->dir >= 2 * PI)
+		player->dir -= 2 * PI;
+}
+
+static void	move_player(t_player *player, int keycode)
 {
 	float	new_x;
 	float	new_y;
@@ -60,7 +93,7 @@ static float	new_xy(t_player *player, float dir_x, float dir_y, float *new_y)
 {
 	float	move_speed;
 
-	move_speed = 0.2;
+	move_speed = 0.03;
 	*new_y = player->y + dir_y * move_speed;
 	return (player->x + dir_x * move_speed);
 }
