@@ -6,7 +6,7 @@
 /*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:05:25 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/08 23:57:58 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/19 09:22:20 by zuraw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	validate_set(char **map, char *set)
 			if (!ft_strchr(set, map[i][j]) && map[i][j] != ' ' &&
 				map[i][j] != '\n')
 			{
-				printf("map[%d][%d] = '%c'\n", i, j, map[i][j]);
+				printf("Line after map\n");
 				return (1);
 			}
 			j++;
@@ -103,7 +103,7 @@ static int	validate_position_count(int p_pos)
 {
 	if (p_pos != 1)
 	{
-		printf("Error: There is more then 1 player position\n");
+		printf("Error: There is not 1 player position\n");
 		return (1);
 	}
 	return (0);
