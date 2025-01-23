@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:59:46 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/05 12:35:11 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/23 13:15:00 by astefans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
 //obliczenia płaszczyzny kamery
-void calculate_camera_plane(t_player *player) 
+void	calculate_camera_plane(t_player *player)
 {
-    player->plane_x = player->dir_y * tan(player->fov / 2);
-    player->plane_y = -player->dir_x * tan(player->fov / 2);
+	player->plane_x = player->dir_y * tan(player->fov / 2);
+	player->plane_y = -player->dir_x * tan(player->fov / 2);
 }
+
 //inicjalizacja struktury promienia i jego wartości do obliczenia promienia
 void	init_ray(t_ray *ray, int x, t_player *player)
 {
@@ -29,6 +30,7 @@ void	init_ray(t_ray *ray, int x, t_player *player)
 	ray->delta_x = fabs(1 / ray->x_dir);
 	ray->delta_y = fabs(1 / ray->y_dir);
 }
+
 /*obliczenia "kroku" (step) promienia,
 który będzie następnie używany do obliczenia odległości do ściany*/
 static void	calculate_step(t_ray *ray, t_player *player)
@@ -54,6 +56,7 @@ static void	calculate_step(t_ray *ray, t_player *player)
 		ray->side_y = (ray->map_y + 1.0 - player->y) * ray->delta_y;
 	}
 }
+
 //odległość do ściany 
 static void	calculate_wall_dist(t_ray *ray, char **map)
 {
@@ -79,6 +82,7 @@ static void	calculate_wall_dist(t_ray *ray, char **map)
 	else
 		ray->wall_d = ray->side_y - ray->delta_y;
 }
+
 //obliczenie wysokości ściany i start oraz koniec rysowania ściany
 static void	calculate_wall_height(t_ray *ray, t_player *player)
 {
@@ -95,6 +99,7 @@ static void	calculate_wall_height(t_ray *ray, t_player *player)
 		ray->wx = player->x + ray->wall_d * ray->x_dir;
 	ray->wx -= floor(ray->wx);
 }
+
 //aktualizacja pikseli na mapie
 void	ray_direction(t_data *data, t_ray *ray)
 {

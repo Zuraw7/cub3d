@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/10 12:52:59 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/23 14:09:25 by astefans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	game_loop(t_data *data)
 {
 	handle_movement(data->player, &data->keys);
 	render_scene(data);
+	//render_raycast(&data);
 	return (0);
 }
 
@@ -41,14 +42,11 @@ int	main(int ac, char **av)
 	printf("South texture:	%s\n", data.map->nesw_textures[2]);
 	printf("West texture:	%s\n", data.map->nesw_textures[3]);
 	printf("\n\n");
-
 	open_window(data.mlx);
-
 	render_imgs(&data);
-	render_raycast(&data);
+	//render_raycast(&data);
 	register_events(&data);
 	mlx_loop_hook(data.mlx->mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx->mlx_ptr);
 	return (0);
 }
-
