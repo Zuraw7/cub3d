@@ -6,14 +6,14 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:49:19 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/05 12:37:30 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/05 17:03:20 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 /*tworzy bufor tekstury z obrazu,
 kopiując piksele z adresu obrazu (img->addr) do nowego bufora (pixels)*/
-bool	create_tex_buffer_from_img(t_data *data,
+/*bool	create_tex_buffer_from_img(t_data *data,
 		t_img *img, t_main_direction dir)
 {
 	int	*pixels;
@@ -32,9 +32,9 @@ bool	create_tex_buffer_from_img(t_data *data,
 	}
 	data->tex_buffer[dir] = pixels;
 	return (true);
-}
+}*/
 //kierunki główne
-static t_main_direction	get_main_direction(t_ray *ray)
+/*static t_main_direction	get_main_direction(t_ray *ray)
 {
 	if (ray->side == 0)
 	{
@@ -50,7 +50,7 @@ static t_main_direction	get_main_direction(t_ray *ray)
 		else
 			return (NORTH);
 	}
-}
+}*/
 //zwalnia pamięć z tablicy
 void	free_array(void **array, int n)
 {
@@ -84,7 +84,7 @@ bool	create_pixel_map(t_data *data)
 	return (true);
 }
 //aktualizuje piksele na mapie
-void	update_pixel_map(t_data *data, t_ray *ray, int x)
+/*void	update_pixel_map(t_data *data, t_ray *ray, int x)
 {
 	t_main_direction	dir;
 	int						tex_x;
@@ -109,7 +109,23 @@ void	update_pixel_map(t_data *data, t_ray *ray, int x)
 			data->pixels[ray->draw_s][x] = color;
 		ray->draw_s++;
 	}
+}*/
+void update_pixel_map(t_data *data, t_ray *ray, int x)
+{
+    int color;
+
+    while (ray->draw_s < ray->draw_e)
+    {
+        if (ray->side == 0)
+            color = 0xFF0000; // Czerwony dla ścian pionowych
+        else
+            color = 0x00FF00; // Zielony dla ścian poziomych
+
+        data->pixels[ray->draw_s][x] = color;
+        ray->draw_s++;
+    }
 }
+
 //rysuje mapę pikseli
 void	draw_pixel_map(t_data *data)
 {
