@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/27 15:53:04 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/27 21:09:38 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@
 # define PI 3.14159265359
 # define TEX_SIZE 64
 
-# ifndef BONUS
-#  define BONUS 1
-# endif
 
 # define DIST_EDGE_MOUSE_WRAP 20 
 
@@ -140,6 +137,7 @@ typedef struct s_ray
 	double	side_y; //odległość do najbliższej linii siatki y
 	double	wall_d; // odległość do ściany
 	double	wx; //ściana x
+	double	perp_wall_dist;
 	int		map_x; // pozycja x na mapie
 	int		map_y; // pozycja y na mapie
 	int		step_x; // krok x
@@ -185,6 +183,8 @@ typedef struct s_data
 	void		*window;
 	int			win_height;
 	int			win_width;
+	int			screen_width;
+	int			screen_height;
 	int			*tex_buffer[4];
 	int			**pixels;
 }				t_data;
@@ -200,8 +200,8 @@ int		close_window(t_data *data);
 // keyboard_input.c
 void	register_events(t_data *data);
 //mouse_input.c
-void	wrap_mouse_position(t_data *data, int x, int y);
-int		mouse_motion_handler(int x, int y, t_data *data);
+//void	wrap_mouse_position(t_data *data, int x, int y);
+//int		mouse_motion_handler(int x, int y, t_data *data);
 // player_move.c
 void	handle_movement(t_player *player, t_keys *keys);
 void	rotate_player(t_player *player, int keycode);
@@ -288,14 +288,19 @@ void	input_checker(int argc, char **argv);
 
 /*	------raycasting------	*/
 // raycasting.c
-void	ray_direction(t_data *data, t_ray *ray);
-void	calculate_camera_plane(t_player *player);
 bool	create_tex_buffer_from_img(t_data *data,
 			t_img *img, t_main_direction dir);
 void	free_array(void **array, int n);
 bool	create_pixel_map(t_data *data);
 void	update_pixel_map(t_data *data, t_ray *ray, int x);
 void	draw_pixel_map(t_data *data);
+void	render_raycast(t_data *data);
+void	init_ray(t_ray *ray, int x, t_player *player);
+void	calculate_step(t_ray *ray, t_player *player);
+void	perform_dda(t_ray *ray, char **map);
+void	calculate_wall_dist(t_ray *ray, t_player *player);
+void	calculate_wall_height(t_ray *ray, int screen_height);
+void	draw_wall(t_ray *ray, t_data *data, int x);
 
 // create_img.c
 void	render_imgs(t_data *data);
@@ -313,6 +318,4 @@ void	make_ceiling(t_data *data);
 void	make_floor(t_data *data);
 void	ceiling_and_floor(t_data *data);
 
-// render.c
-void	render_raycast(t_data *data);
 #endif

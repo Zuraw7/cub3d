@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:01:14 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/27 15:50:26 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/27 18:06:14 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	register_events(t_data *data)
 	mlx_hook(data->mlx->win_ptr, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx->win_ptr, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx->win_ptr, 17, 0, close_window, data);
-	mlx_hook(data->mlx->win_ptr, 6, 1L << 6, mouse_motion_handler, data);
+	//mlx_hook(data->mlx->win_ptr, 6, 1L << 6, mouse_motion_handler, data);
 }

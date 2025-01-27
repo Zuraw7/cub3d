@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuraw <zuraw@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:05:33 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/10 12:30:00 by zuraw            ###   ########.fr       */
+/*   Updated: 2025/01/27 17:35:28 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	set_data(t_data *data)
 	data->map = set_map(data);
 	data->player = set_player(data);
 	data->rend_img = set_rend_img(data);
+	data->screen_width = data->win_width;  // Initialize screen_width
+	data->screen_height = data->win_height; // Initialize screen_height
 	data->keys.w = false;
 	data->keys.s = false;
 	data->keys.a = false;
