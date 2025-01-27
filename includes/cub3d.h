@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/11 10:23:10 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/27 15:53:04 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@
 # define PX 32
 # define PI 3.14159265359
 # define TEX_SIZE 64
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
+
+# define DIST_EDGE_MOUSE_WRAP 20 
 
 # define INPUT_ERROR "Error: Invalid input\nUsage: ./cub3d <map.cub>"
 # define READ_ERROR "Error: Failed to load map\n"
@@ -190,13 +196,15 @@ typedef struct s_data
 void	open_window(t_mlx *mlx);
 int		close_window(t_data *data);
 
-/*	keyboard-events	*/
+/*	move-events	*/
 // keyboard_input.c
 void	register_events(t_data *data);
-
+//mouse_input.c
+void	wrap_mouse_position(t_data *data, int x, int y);
+int		mouse_motion_handler(int x, int y, t_data *data);
 // player_move.c
 void	handle_movement(t_player *player, t_keys *keys);
-
+void	rotate_player(t_player *player, int keycode);
 /*	------utils------	*/
 // utils.c
 void	*my_realloc(void *ptr, size_t old_size, size_t new_size);

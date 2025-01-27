@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:49:04 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/23 13:29:19 by astefans         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:19:19 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	rotate_player(t_player *player, int keycode);
-static void	move_player(t_player *player, int keycode);
+static void		move_player(t_player *player, int keycode);
 static int		rnd(float num);
 static float	new_xy(t_player *player, float dir_x,
-				float dir_y, float *new_y);
+					float dir_y, float *new_y);
 
 void	handle_movement(t_player *player, t_keys *keys)
 {
@@ -34,7 +33,7 @@ void	handle_movement(t_player *player, t_keys *keys)
 		rotate_player(player, 65363);
 }
 
-static void	rotate_player(t_player *player, int keycode)
+void	rotate_player(t_player *player, int keycode)
 {
 	float	rotate_speed;
 

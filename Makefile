@@ -6,7 +6,7 @@
 #    By: alicja <alicja@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/03 10:48:32 by astefans          #+#    #+#              #
-#    Updated: 2025/01/04 22:57:56 by alicja           ###   ########.fr        #
+#    Updated: 2025/01/27 15:40:45 by alicja           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,9 @@ LIBFT_PATH = includes/libft
 
 SRC_PATH = sources/
 SRC =	$(wildcard $(SRC_PATH)*.c \
-		$(SRC_PATH)keyboard-events/*.c \
+		$(SRC_PATH)move-events/*.c \
 		$(SRC_PATH)window_management/*.c \
 		$(SRC_PATH)utils/*.c \
-		$(SRC_PATH)mouse-events/*.c \
 		$(SRC_PATH)map_reader/*.c \
 		$(SRC_PATH)raycasting/*.c )
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astefans <astefans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:59:46 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/23 13:15:00 by astefans         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:37:35 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-//obliczenia płaszczyzny kamery
+//obliczenia płaszczyzny kamery na podstawie kierunku gracza
 void	calculate_camera_plane(t_player *player)
 {
 	player->plane_x = player->dir_y * tan(player->fov / 2);

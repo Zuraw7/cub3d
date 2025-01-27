@@ -6,14 +6,14 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:49:19 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/05 17:03:20 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/27 16:21:47 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 /*tworzy bufor tekstury z obrazu,
 kopiując piksele z adresu obrazu (img->addr) do nowego bufora (pixels)*/
-/*bool	create_tex_buffer_from_img(t_data *data,
+bool	create_tex_buffer_from_img(t_data *data,
 		t_img *img, t_main_direction dir)
 {
 	int	*pixels;
@@ -28,29 +28,20 @@ kopiując piksele z adresu obrazu (img->addr) do nowego bufora (pixels)*/
 	{
 		j = -1;
 		while (++j < img->width)
-			pixels[i * img->width + j] = img->addr[i * img->width + j];
+			pixels[i * img->width + j] = *(int *)(img->addr + (i * img->line_length + j * (img->bits_per_pixel / 8)));
 	}
 	data->tex_buffer[dir] = pixels;
 	return (true);
-}*/
+}
+
 //kierunki główne
-/*static t_main_direction	get_main_direction(t_ray *ray)
+static t_main_direction	get_main_direction(t_ray *ray)
 {
 	if (ray->side == 0)
-	{
-		if (ray->x_dir < 0)
-			return (WEST);
-		else
-			return (EAST);
-	}
-	else
-	{
-		if (ray->y_dir > 0)
-			return (SOUTH); //w układzie współrzędnych y rośnie w dół
-		else
-			return (NORTH);
-	}
-}*/
+        return (ray->x_dir < 0 ? WEST : EAST);
+    else
+        return (ray->y_dir > 0 ? SOUTH : NORTH);
+}
 //zwalnia pamięć z tablicy
 void	free_array(void **array, int n)
 {
@@ -83,11 +74,13 @@ bool	create_pixel_map(t_data *data)
 	}
 	return (true);
 }
+
 //aktualizuje piksele na mapie
-/*void	update_pixel_map(t_data *data, t_ray *ray, int x)
+void	update_pixel_map(t_data *data, t_ray *ray, int x)
 {
 	t_main_direction	dir;
 	int						tex_x;
+	int 					tex_y;	
 	int						color;
 	double					pos;
 	double					step;
@@ -100,41 +93,28 @@ bool	create_pixel_map(t_data *data)
 	pos = (ray->draw_s - HEIGHT / 2 + ray->height / 2) * step;
 	while (ray->draw_s < ray->draw_e)
 	{
-		pos += step;
-		color = (data->tex_buffer)[dir][TEX_SIZE
-			* ((int)pos & (TEX_SIZE - 1)) + tex_x];
-		if (dir == NORTH || dir == SOUTH)
-			color = (color >> 1) & 0x7F7F7F;
-		if (color > 0)
-			data->pixels[ray->draw_s][x] = color;
-		ray->draw_s++;
-	}
-}*/
-void update_pixel_map(t_data *data, t_ray *ray, int x)
-{
-    int color;
-
-    while (ray->draw_s < ray->draw_e)
-    {
-        if (ray->side == 0)
-            color = 0xFF0000; // Czerwony dla ścian pionowych
-        else
-            color = 0x00FF00; // Zielony dla ścian poziomych
-
-        data->pixels[ray->draw_s][x] = color;
+		tex_y = (int)pos & (TEX_SIZE - 1);
+        pos += step;
+        color = data->tex_buffer[dir][tex_y * TEX_SIZE + tex_x];
+        // Efekt przyciemniania w zależności od odległości do ściany
+        if (ray->side == 1)
+            color = (color >> 1) & 0x7F7F7F;
+        // Ustawienie koloru piksela
+        if (color > 0)
+            data->pixels[ray->draw_s][x] = color;
         ray->draw_s++;
-    }
+	}
 }
 
 //rysuje mapę pikseli
-void	draw_pixel_map(t_data *data)
+/*void	draw_pixel_map(t_data *data)
 {
 	t_img	img;
 	int		x;
 	int		y;
 
 	img.img = mlx_new_image(data->mlx->mlx_ptr, WIDTH, HEIGHT);
-	if (img.img == NULL)
+	if (!img.img)
 		return ;
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
@@ -154,4 +134,34 @@ void	draw_pixel_map(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr, img.img, 0, 0);
 	mlx_destroy_image(data->mlx->mlx_ptr, img.img);
+}*/
+
+void draw_pixel_map(t_data *data)
+{
+    t_img img;
+    int x;
+	int y;
+
+    img.img = mlx_new_image(data->mlx->mlx_ptr, WIDTH, HEIGHT);
+    if (!img.img)
+        return;
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    // Wypełnianie tła (sufit i podłoga)
+    for (y = 0; y < HEIGHT; y++)
+    {
+        int color = (y < HEIGHT / 2) ? data->map->ceiling_color : data->map->floor_color;
+        for (x = 0; x < WIDTH; x++)
+            img.addr[y * (img.line_length / 4) + x] = color;
+    }
+    // Rysowanie ścian
+    for (x = 0; x < WIDTH; x++)
+    {
+        for (y = 0; y < HEIGHT; y++)
+        {
+            if (data->pixels[y][x] > 0)
+                img.addr[y * (img.line_length / 4) + x] = data->pixels[y][x];
+        }
+    }
+    mlx_put_image_to_window(data->mlx->mlx_ptr, data->mlx->win_ptr, img.img, 0, 0);
+    mlx_destroy_image(data->mlx->mlx_ptr, img.img);
 }
