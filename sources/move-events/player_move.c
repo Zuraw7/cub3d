@@ -6,13 +6,12 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:49:04 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/27 16:19:19 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/28 17:26:48 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void		move_player(t_player *player, int keycode);
 static int		rnd(float num);
 static float	new_xy(t_player *player, float dir_x,
 					float dir_y, float *new_y);
@@ -48,7 +47,7 @@ void	rotate_player(t_player *player, int keycode)
 		player->dir -= 2 * PI;
 }
 
-static void	move_player(t_player *player, int keycode)
+void	move_player(t_player *player, int keycode)
 {
 	float	new_x;
 	float	new_y;

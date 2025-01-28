@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/27 21:09:38 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/28 17:37:59 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@
 # define COLORS_ERROR "Error: Invalid colors\n"
 # define INFO_ERROR "File should contain NO, EA, SO, WE, C, F \
 and map structure only\n"
-
-# define MOUSE_EDGE_LIMIT 30
 
 /*	STRUCTS	*/
 
@@ -187,6 +185,18 @@ typedef struct s_data
 	int			screen_height;
 	int			*tex_buffer[4];
 	int			**pixels;
+	int				tex_x;
+	int				tex_y;
+	int				tex_w;
+	int				tex_h;
+	int				tex_w1;
+	int				tex_h1;
+	int				tex_w2;
+	int				tex_h2;
+	int				tex_w3;
+	int				tex_h3;
+	int				tex_w4;
+	int				tex_h4;
 }				t_data;
 
 /*	FUNCTIONS	*/
@@ -203,6 +213,7 @@ void	register_events(t_data *data);
 //void	wrap_mouse_position(t_data *data, int x, int y);
 //int		mouse_motion_handler(int x, int y, t_data *data);
 // player_move.c
+void	move_player(t_player *player, int keycode);
 void	handle_movement(t_player *player, t_keys *keys);
 void	rotate_player(t_player *player, int keycode);
 /*	------utils------	*/
@@ -301,6 +312,12 @@ void	perform_dda(t_ray *ray, char **map);
 void	calculate_wall_dist(t_ray *ray, t_player *player);
 void	calculate_wall_height(t_ray *ray, int screen_height);
 void	draw_wall(t_ray *ray, t_data *data, int x);
+void	ray_direction(t_data *data, t_player *player);
+void	tex_onwhich_side(t_data *data, t_ray *ray);
+void	texture_prep(t_data *data, t_ray *ray);
+void	texture_loop(t_data *data, t_ray *ray, int x);
+int		get_ray_color(t_data *data, t_ray *ray);
+int		raycast(void *param);
 
 // create_img.c
 void	render_imgs(t_data *data);

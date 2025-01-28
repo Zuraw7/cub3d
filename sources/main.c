@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/27 18:18:44 by alicja           ###   ########.fr       */
+/*   Updated: 2025/01/28 17:35:24 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	main(int ac, char **av)
 	printf("\n\n");
 	open_window(data.mlx);
 	render_imgs(&data);
-	render_raycast(&data);
+	raycast(&data);
+	//render_raycast(&data);
 	register_events(&data);
 	mlx_loop_hook(data.mlx->mlx_ptr, game_loop, &data);
 	mlx_loop(data.mlx->mlx_ptr);
