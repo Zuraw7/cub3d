@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:59:46 by alicja            #+#    #+#             */
-/*   Updated: 2025/01/28 19:24:53 by alicja           ###   ########.fr       */
+/*   Updated: 2025/02/02 20:51:40 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	calculate_camera_plane(t_player *player)
 void	init_ray(t_ray *ray, int x, t_player *player)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
+	//ray->delta_x = (ray->x_dir != 0) ? fabs(1.0 / ray->x_dir) : DBL_MAX;
+	//ray->delta_y = (ray->y_dir != 0) ? fabs(1.0 / ray->y_dir) : DBL_MAX;
 	ray->x_dir = player->dir_x + player->plane_x * ray->camera_x;
 	ray->y_dir = player->dir_y + player->plane_y * ray->camera_x;
 	ray->map_x = (int)player->x;
@@ -35,25 +37,28 @@ void	init_ray(t_ray *ray, int x, t_player *player)
 który będzie następnie używany do obliczenia odległości do ściany*/
 void	calculate_step(t_ray *ray, t_player *player)
 {
-	if (ray->x_dir < 0)
+	while ((ray->x_dir != 0) && (ray->y_dir != 0))
 	{
-		ray->step_x = -1;
-		ray->side_x = (player->x - ray->map_x) * ray->delta_x;
-	}
-	else
-	{
-		ray->step_x = 1;
-		ray->side_x = (ray->map_x + 1.0 - player->x) * ray->delta_x;
-	}
-	if (ray->y_dir < 0)
-	{
-		ray->step_y = -1;
-		ray->side_y = (player->y - ray->map_y) * ray->delta_y;
-	}
-	else
-	{
-		ray->step_y = 1;
-		ray->side_y = (ray->map_y + 1.0 - player->y) * ray->delta_y;
+		if (ray->x_dir < 0)
+		{
+			ray->step_x = -1;
+			ray->side_x = (player->x - ray->map_x) * ray->delta_x;
+		}
+		else
+		{
+			ray->step_x = 1;
+			ray->side_x = (ray->map_x + 1.0 - player->x) * ray->delta_x;
+		}
+		if (ray->y_dir < 0)
+		{
+			ray->step_y = -1;
+			ray->side_y = (player->y - ray->map_y) * ray->delta_y;
+		}
+		else
+		{
+			ray->step_y = 1;
+			ray->side_y = (ray->map_y + 1.0 - player->y) * ray->delta_y;
+		}
 	}
 }
 
@@ -324,7 +329,7 @@ int raycast(void *param)
 	t_img img;
     int x;
     t_data *data;
-	int keycode= 0;
+	int keycode = 0;
 
     x = 0;
     data = (t_data *)param;

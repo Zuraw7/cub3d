@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:25:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/28 17:35:24 by alicja           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:15:54 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int ac, char **av)
 	printf("\n\n");
 	open_window(data.mlx);
 	render_imgs(&data);
+	ray_direction(&data, data.player);
 	raycast(&data);
 	//render_raycast(&data);
 	register_events(&data);

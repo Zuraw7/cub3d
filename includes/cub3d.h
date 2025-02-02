@@ -6,7 +6,7 @@
 /*   By: alicja <alicja@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 00:03:48 by zuraw             #+#    #+#             */
-/*   Updated: 2025/01/28 17:37:59 by alicja           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:21:59 by alicja           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdbool.h>
+#include <float.h>
 # include <sys/time.h>
 # include "./minilibx/mlx.h"
 # include "./libft/libft.h"
